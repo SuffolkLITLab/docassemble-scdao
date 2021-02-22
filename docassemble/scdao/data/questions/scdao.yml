@@ -9,18 +9,18 @@ metadata:
     Case Integrity Review Form
   short title: |
     Case Integrity Review Form
-  #tags:
-    #- BE-00-00-00-00
-    #- BE-04-00-00-00
-    #- ED-00-00-00-00
-    #- ES-00-00-00-00
-    #- FA-00-00-00-00
-    #- FA-07-00-00-00
-    #- HE-00-00-00-00
-    #- HO-00-00-00-00
-    #- IM-00-00-00-00
-    #- MO-00-00-00-00
-    #- RI-10-00-00-00
+  tags:
+    - BE-00-00-00-00
+    - BE-04-00-00-00
+    - ED-00-00-00-00
+    - ES-00-00-00-00
+    - FA-00-00-00-00
+    - FA-07-00-00-00
+    - HE-00-00-00-00
+    - HO-00-00-00-00
+    - IM-00-00-00-00
+    - MO-00-00-00-00
+    - RI-10-00-00-00
 ---
 comment: |
   This section is used by AssemblyLine to control how some of the questions work.
@@ -108,7 +108,7 @@ code: |
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
   user_ask_role
-  pfc_number
+  pcf_number
   incident_date
   charges
   set_progress(9.09)
@@ -192,8 +192,8 @@ fields:
     datatype: yesno
   - 'Neither - Defendant Pro Se': neither_defendant_pro_se
     datatype: yesno
-  - 'None': none
-    datatype: yesno
+  #- 'None': none
+  #  datatype: yesno
   - 'Requested': requested
     datatype: yesno
 ---
@@ -318,8 +318,6 @@ question: |
 subquestion: |
   Please fill out the following:
 fields:
-  - '------ what is this??': 
-
   - 'Application for complaint': application_for_complaint
     datatype: yesno
   - 'Complaint': complaint
@@ -376,7 +374,7 @@ attachment:
       - "ada_name_first": ${ ada.name.first }
       - "defense_counsel_name_last": ${ defense_counsel.name.last }
       - "ada_name_last": ${ ada.name.last }
-      - "pfc_number": ${ pfc_number }
+      - "pcf_number": ${ pcf_number }
       - "lead_database_review_yes": ${ lead_database_review }
       - "lead_database_review_no": ${ not lead_database_review }
       - "request_type1": ${ request_type1 }
@@ -391,7 +389,7 @@ attachment:
       - "retained": ${ retained }
       - "oral": ${ oral }
       - "neither_defendant_pro_se": ${ neither_defendant_pro_se }
-      - "none": ${ none }
+      - "None": ${ none }
       - "requested": ${ requested }
       - "charges": ${ charges }
       - "item1_supressed": ${ item1_supressed }
@@ -459,10 +457,10 @@ question: |
 subquestion: |
   Edit your answers below
 review: 
-  - Edit: pfc_number
+  - Edit: pcf_number
     button: |
       **PCF number (if known)**:
-      ${ pfc_number }
+      ${ pcf_number }
   - Edit: lead_database_review
     button: |
       **LEAD database review?**:
