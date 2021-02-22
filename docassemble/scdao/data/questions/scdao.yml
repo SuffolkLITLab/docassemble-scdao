@@ -192,8 +192,8 @@ fields:
     datatype: yesno
   - 'Neither - Defendant Pro Se': neither_defendant_pro_se
     datatype: yesno
-  #- 'None': none
-  #  datatype: yesno
+  - 'None': none
+    datatype: yesno
   - 'Requested': requested
     datatype: yesno
 ---
@@ -713,10 +713,6 @@ review:
     button: |
       **Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):**:
       ${ recommendation }
-  - Edit: 
-    button: |
-      **------ what is this??**:
-      ${  }
   - Edit: application_for_complaint
     button: |
       **Application for complaint**:
