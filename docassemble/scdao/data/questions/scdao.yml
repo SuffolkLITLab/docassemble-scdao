@@ -203,9 +203,9 @@ question: |
 fields:
   - 'Charges': charges
     maxlength: 630
-  - 'If applicable, what was item suppressed on most serious charge?': item1_supressed
+  - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
     maxlength: 49
-  - 'If applicable, what was item suppressed on most serious charge?': item2_supressed
+  - 'If applicable, what was item suppressed on most serious charge?': item2_suppressed
     maxlength: 49
   - 'Cash (if cash, please write amount seize in "Other")': cash_if_cash_please_write_amount_seize_in_other
     datatype: yesno
@@ -221,7 +221,7 @@ fields:
     datatype: yesno
   - 'Paraphernalia': paraphernalia
     datatype: yesno
-  - 'Other': supressed_check_box_other
+  - 'Other': suppressed_check_box_other
     datatype: yesno
   - 'Please specify:': suppressed_specific_other
     maxlength: 44
@@ -276,9 +276,9 @@ fields:
     datatype: yesno
   - 'Lack of probable cause': lack_of_probable_cause
     datatype: yesno
-  - 'Other': supressed_order_problem_check_box_other
+  - 'Other': suppressed_order_problem_check_box_other
     datatype: yesno
-  - 'Please specify': supressed_order_problem_specific_other
+  - 'Please specify': suppressed_order_problem_specific_other
     maxlength: 44
   - 'Officer (if more then one officer testified, please check "Other" and say how many)': officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
     datatype: yesno
@@ -392,8 +392,8 @@ attachment:
       - "None": ${ none }
       - "requested": ${ requested }
       - "charges": ${ charges }
-      - "item1_supressed": ${ item1_supressed }
-      - "item2_supressed": ${ item2_supressed }
+      - "item1_suppressed": ${ item1_suppressed }
+      - "item2_suppressed": ${ item2_suppressed }
       - "cash_if_cash_please_write_amount_seize_in_other": ${ cash_if_cash_please_write_amount_seize_in_other }
       - "cell_phone": ${ cell_phone }
       - "drugs": ${ drugs }
@@ -401,7 +401,7 @@ attachment:
       - "statements": ${ statements }
       - "vehicle": ${ vehicle }
       - "paraphernalia": ${ paraphernalia }
-      - "supressed_check_box_other": ${ supressed_check_box_other }
+      - "suppressed_check_box_other": ${ suppressed_check_box_other }
       - "suppressed_specific_other": ${ suppressed_specific_other }
       - "officer_no_show": ${ officer_no_show }
       - "officer_credibility": ${ officer_credibility }
@@ -426,8 +426,8 @@ attachment:
       - "standing_expectation_of_privacy": ${ standing_expectation_of_privacy }
       - "lack_of_reasonable_suspicion": ${ lack_of_reasonable_suspicion }
       - "lack_of_probable_cause": ${ lack_of_probable_cause }
-      - "supressed_order_problem_check_box_other": ${ supressed_order_problem_check_box_other }
-      - "supressed_order_problem_specific_other": ${ supressed_order_problem_specific_other }
+      - "suppressed_order_problem_check_box_other": ${ suppressed_order_problem_check_box_other }
+      - "suppressed_order_problem_specific_other": ${ suppressed_order_problem_specific_other }
       - "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many }
       - "video": ${ video }
       - "audio": ${ audio }
@@ -525,14 +525,14 @@ review:
     button: |
       **Charges**:
       ${ charges }
-  - Edit: item1_supressed
+  - Edit: item1_suppressed
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
-      ${ item1_supressed }
-  - Edit: item2_supressed
+      ${ item1_suppressed }
+  - Edit: item2_suppressed
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
-      ${ item2_supressed }
+      ${ item2_suppressed }
   - Edit: cash_if_cash_please_write_amount_seize_in_other
     button: |
       **Cash (if cash, please write amount seize in "Other")**:
@@ -561,10 +561,10 @@ review:
     button: |
       **Paraphernalia**:
       ${ word(yesno(paraphernalia)) }
-  - Edit: supressed_check_box_other
+  - Edit: suppressed_check_box_other
     button: |
       **Other**:
-      ${ word(yesno(supressed_check_box_other)) }
+      ${ word(yesno(suppressed_check_box_other)) }
   - Edit: suppressed_specific_other
     button: |
       **Please specify:**:
@@ -657,14 +657,14 @@ review:
     button: |
       **Lack of probable cause**:
       ${ word(yesno(lack_of_probable_cause)) }
-  - Edit: supressed_order_problem_check_box_other
+  - Edit: suppressed_order_problem_check_box_other
     button: |
       **Other**:
-      ${ word(yesno(supressed_order_problem_check_box_other)) }
-  - Edit: supressed_order_problem_specific_other
+      ${ word(yesno(suppressed_order_problem_check_box_other)) }
+  - Edit: suppressed_order_problem_specific_other
     button: |
       **Please specify**:
-      ${ supressed_order_problem_specific_other }
+      ${ suppressed_order_problem_specific_other }
   - Edit: officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
     button: |
       **Officer (if more then one officer testified, please check "Other" and say how many)**:
