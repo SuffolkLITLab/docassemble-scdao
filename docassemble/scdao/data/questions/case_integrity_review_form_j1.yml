@@ -32,7 +32,7 @@ code: |
   interview_metadata['case_integrity_review_form'].update({
     'title': 'Case Integrity Review Form',
     'short title': 'Case Integrity Review Form',
-    'description': 'his form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.',
+    'description': 'This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.',
     'original_form': '',
     'allowed courts': [
       'Boston Municipal Court',
@@ -158,12 +158,14 @@ subquestion: |
   Please fill out the following preliminary questions so we can start the case integrity review form started.
 fields:
   - 'PCF number (if known)': pcf_number
+    required: False
     maxlength: 40
   - 'LEAD database review?': lead_database_review
     datatype: yesno
   - 'Type of Motion / Action / Review Request': request_type1
     maxlength: 44
   - 'Type of Motion / Action / Review Request': request_type2
+    required: False
     maxlength: 44
 ---
 id: Specifications
@@ -203,50 +205,53 @@ question: |
 fields:
   - 'Charges': charges
     maxlength: 630
-  - 'If applicable, what was item suppressed on most serious charge?': item1_supressed
+  - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
+    required: False
     maxlength: 49
-  - 'If applicable, what was item suppressed on most serious charge?': item2_supressed
+  - 'If applicable, what was item suppressed on most serious charge?': item2_suppressed
+    required: False
     maxlength: 49
-  - 'Cash (if cash, please write amount seize in "Other")': cash_if_cash_please_write_amount_seize_in_other
-    datatype: yesno
-  - 'Cell phone': cell_phone
-    datatype: yesno
-  - 'Drugs': drugs
-    datatype: yesno
-  - 'Guns': guns
-    datatype: yesno
-  - 'Statements': statements
-    datatype: yesno
-  - 'Vehicle': vehicle
-    datatype: yesno
-  - 'Paraphernalia': paraphernalia
-    datatype: yesno
-  - 'Other': supressed_check_box_other
-    datatype: yesno
-  - 'Please specify:': suppressed_specific_other
-    maxlength: 44
-  - 'Officer no-show': officer_no_show
-    datatype: yesno
-  - 'Officer credibility': officer_credibility
-    datatype: yesno
-  - 'Witness no-show': witness_no_show
-    datatype: yesno
-  - 'Witness credibility': witness_credibility
-    datatype: yesno
-  - 'CI reliability / basis of knowledge': ci_reliability_basis_of_knowledge
-    datatype: yesno
-  - 'Legal error by trial court': legal_error_by_trial_court
-    datatype: yesno
-  - 'Misapplication of law to facts': misapplication_of_law_to_facts
-    datatype: yesno
-  - 'Other': decision_reason_check_box_other
-    datatype: yesno
-  - 'Please specify.': decision_reason_specific_other
-    maxlength: 44
   - 'Police Department Involved': police_department
     maxlength: 44
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
+    required: False
     maxlength: 39
+---
+question: |
+ If applicable, what was item suppressed on most serious charge?
+fields:
+  - Check all that apply: serious_suppressed
+    choices:
+      - Cash (if cash, please write amount seize in "Other")
+      - Cell phone
+      - Drugs
+      - Guns
+      - Statements
+      - Vehicle
+      - Paraphernalia
+      - Other
+  - Other: serious_suppressed
+    show if:
+      variable: serious_suppressed
+      is: Other
+---
+question: |
+ Reasons for decision?
+fields:
+  - Check all that apply: decision_reason
+    choices:
+      - Officer no-show
+      - Officer credibility
+      - Witness no-show
+      - Witness credibility
+      - CI reliability / basis of knowledge
+      - Legal error by trial court
+      - Misapplication of law to facts
+      - Other
+  - Other: decision_reason
+    show if:
+      variable: decision_reason
+      is: Other
 ---
 id: Specifications cont d
 question: |
@@ -259,26 +264,34 @@ fields:
   - 'Motion to Suppress / Dismiss was:': motion_result
     maxlength: 44
   - 'Stop': stop
+    required: False
     datatype: yesno
   - 'Seizure': seizure
+    required: False
     datatype: yesno
   - 'Warrantless search': warrantless_search
+    required: False
     datatype: yesno
   - 'Warrant search': warrant_search
     datatype: yesno
   - 'Voluntariness': voluntariness
+    required: False
     datatype: yesno
   - 'Miranda': miranda
+    required: False
     datatype: yesno
   - 'Standing expectation of privacy': standing_expectation_of_privacy
+    required: False
     datatype: yesno
   - 'Lack of reasonable suspicion': lack_of_reasonable_suspicion
+    required: False
     datatype: yesno
   - 'Lack of probable cause': lack_of_probable_cause
+    required: False
     datatype: yesno
-  - 'Other': supressed_order_problem_check_box_other
+  - 'Other': suppressed_order_problem_check_box_other
     datatype: yesno
-  - 'Please specify': supressed_order_problem_specific_other
+  - 'Please specify': suppressed_order_problem_specific_other
     maxlength: 44
   - 'Officer (if more then one officer testified, please check "Other" and say how many)': officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
     datatype: yesno
@@ -389,11 +402,11 @@ attachment:
       - "retained": ${ retained }
       - "oral": ${ oral }
       - "neither_defendant_pro_se": ${ neither_defendant_pro_se }
-      - "none": ${ none }
+      - "None": ${ none }
       - "requested": ${ requested }
       - "charges": ${ charges }
-      - "item1_supressed": ${ item1_supressed }
-      - "item2_supressed": ${ item2_supressed }
+      - "item1_suppressed": ${ item1_supressed }
+      - "item2_suppressed": ${ item2_suppressed }
       - "cash_if_cash_please_write_amount_seize_in_other": ${ cash_if_cash_please_write_amount_seize_in_other }
       - "cell_phone": ${ cell_phone }
       - "drugs": ${ drugs }
@@ -401,7 +414,7 @@ attachment:
       - "statements": ${ statements }
       - "vehicle": ${ vehicle }
       - "paraphernalia": ${ paraphernalia }
-      - "supressed_check_box_other": ${ supressed_check_box_other }
+      - "suppressed_check_box_other": ${ suppressed_check_box_other }
       - "suppressed_specific_other": ${ suppressed_specific_other }
       - "officer_no_show": ${ officer_no_show }
       - "officer_credibility": ${ officer_credibility }
@@ -426,8 +439,8 @@ attachment:
       - "standing_expectation_of_privacy": ${ standing_expectation_of_privacy }
       - "lack_of_reasonable_suspicion": ${ lack_of_reasonable_suspicion }
       - "lack_of_probable_cause": ${ lack_of_probable_cause }
-      - "supressed_order_problem_check_box_other": ${ supressed_order_problem_check_box_other }
-      - "supressed_order_problem_specific_other": ${ supressed_order_problem_specific_other }
+      - "suppressed_order_problem_check_box_other": ${ suppressed_order_problem_check_box_other }
+      - "suppressed_order_problem_specific_other": ${ suppressed_order_problem_specific_other }
       - "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many }
       - "video": ${ video }
       - "audio": ${ audio }
@@ -440,6 +453,7 @@ attachment:
       - "commonwealth_hearing_argument": ${ commonwealth_hearing_argument }
       - "decision_basis": ${ decision_basis }
       - "recommendation": ${ recommendation }
+      - "`82": ${  }
       - "application_for_complaint": ${ application_for_complaint }
       - "complaint": ${ complaint }
       - "police_report": ${ police_report }
@@ -524,14 +538,14 @@ review:
     button: |
       **Charges**:
       ${ charges }
-  - Edit: item1_supressed
+  - Edit: item1_suppressed
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
-      ${ item1_supressed }
-  - Edit: item2_supressed
+      ${ item1_suppressed }
+  - Edit: item2_suppressed
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
-      ${ item2_supressed }
+      ${ item2_suppressed }
   - Edit: cash_if_cash_please_write_amount_seize_in_other
     button: |
       **Cash (if cash, please write amount seize in "Other")**:
@@ -560,10 +574,10 @@ review:
     button: |
       **Paraphernalia**:
       ${ word(yesno(paraphernalia)) }
-  - Edit: supressed_check_box_other
+  - Edit: suppressed_check_box_other
     button: |
       **Other**:
-      ${ word(yesno(supressed_check_box_other)) }
+      ${ word(yesno(suppressed_check_box_other)) }
   - Edit: suppressed_specific_other
     button: |
       **Please specify:**:
@@ -656,14 +670,14 @@ review:
     button: |
       **Lack of probable cause**:
       ${ word(yesno(lack_of_probable_cause)) }
-  - Edit: supressed_order_problem_check_box_other
+  - Edit: suppressed_order_problem_check_box_other
     button: |
       **Other**:
-      ${ word(yesno(supressed_order_problem_check_box_other)) }
-  - Edit: supressed_order_problem_specific_other
+      ${ word(yesno(suppressed_order_problem_check_box_other)) }
+  - Edit: suppressed_order_problem_specific_other
     button: |
       **Please specify**:
-      ${ supressed_order_problem_specific_other }
+      ${ suppressed_order_problem_specific_other }
   - Edit: officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
     button: |
       **Officer (if more then one officer testified, please check "Other" and say how many)**:
@@ -749,7 +763,6 @@ review:
       # NOTE: a question block with 'docket_numbers.revisit'
       # lets the user edit all of the items at once
       **docket_numbers**
-
       % for my_var in docket_numbers:
         * ${ my_var }
       % endfor
@@ -758,7 +771,6 @@ review:
       # NOTE: a question block with 'defendants.revisit'
       # lets the user edit all of the items at once
       **defendants**
-
       % for my_var in defendants:
         * ${ my_var }
       % endfor
@@ -767,7 +779,6 @@ review:
       # NOTE: a question block with 'courts.revisit'
       # lets the user edit all of the items at once
       **courts**
-
       % for my_var in courts:
         * ${ my_var }
       % endfor
@@ -776,7 +787,6 @@ review:
       # NOTE: a question block with 'witnesses.revisit'
       # lets the user edit all of the items at once
       **witnesses**
-
       % for my_var in witnesses:
         * ${ my_var }
       % endfor
