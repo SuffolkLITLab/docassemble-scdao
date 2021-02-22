@@ -159,11 +159,13 @@ subquestion: |
 fields:
   - 'PCF number (if known)': pcf_number
     maxlength: 40
+    required: False
   - 'LEAD database review?': lead_database_review
     datatype: yesno
   - 'Type of Motion / Action / Review Request': request_type1
     maxlength: 44
   - 'Type of Motion / Action / Review Request': request_type2
+    required: False
     maxlength: 44
 ---
 id: Specifications
@@ -204,8 +206,10 @@ fields:
   - 'Charges': charges
     maxlength: 630
   - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
+    required: False
     maxlength: 49
   - 'If applicable, what was item suppressed on most serious charge?': item2_suppressed
+    required: False
     maxlength: 49
   - 'Cash (if cash, please write amount seize in "Other")': cash_if_cash_please_write_amount_seize_in_other
     datatype: yesno
@@ -246,6 +250,7 @@ fields:
   - 'Police Department Involved': police_department
     maxlength: 44
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
+    required: False
     maxlength: 39
 ---
 id: Specifications cont d
@@ -331,8 +336,10 @@ fields:
   - 'Defendants bop': defendants_bop
     datatype: yesno
   - 'Motion judges written findings and rulings, if any': motion_judges_written_findings_and_rulings_if_any
+    required: False
     datatype: yesno
   - 'Commonwealths opposition, if any': commonwealths_opposition_if_any
+    required: False
     datatype: yesno
 ---
 progress: 100
