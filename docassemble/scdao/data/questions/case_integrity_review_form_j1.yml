@@ -405,7 +405,7 @@ attachment:
       - "None": ${ none }
       - "requested": ${ requested }
       - "charges": ${ charges }
-      - "item1_suppressed": ${ item1_supressed }
+      - "item1_suppressed": ${ item1_suppressed }
       - "item2_suppressed": ${ item2_suppressed }
       - "cash_if_cash_please_write_amount_seize_in_other": ${ cash_if_cash_please_write_amount_seize_in_other }
       - "cell_phone": ${ cell_phone }
