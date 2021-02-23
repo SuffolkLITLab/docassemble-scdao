@@ -265,25 +265,36 @@ fields:
     maxlength: 44
   - 'Stop': stop
     datatype: yesno
+    required: False
   - 'Seizure': seizure
+    required: False
     datatype: yesno
   - 'Warrantless search': warrantless_search
+    required: False
     datatype: yesno
   - 'Warrant search': warrant_search
+    required: False
     datatype: yesno
   - 'Voluntariness': voluntariness
+    required: False
     datatype: yesno
   - 'Miranda': miranda
+    required: False
     datatype: yesno
   - 'Standing expectation of privacy': standing_expectation_of_privacy
+    required: False
     datatype: yesno
   - 'Lack of reasonable suspicion': lack_of_reasonable_suspicion
+    required: False
     datatype: yesno
   - 'Lack of probable cause': lack_of_probable_cause
+    required: False
     datatype: yesno
   - 'Other': suppressed_order_problem_check_box_other
+    required: False
     datatype: yesno
   - 'Please specify': suppressed_order_problem_specific_other
+    required: False
     maxlength: 44
   - 'Officer (if more then one officer testified, please check "Other" and say how many)': officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
     datatype: yesno
