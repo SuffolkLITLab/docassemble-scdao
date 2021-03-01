@@ -77,9 +77,8 @@ objects:
   - judge: ALPeopleList.using(there_are_any=True)
   - defendants: ALPeopleList.using(ask_number=True,target_number=1)
   - witnesses: ALPeopleList
-  - ada: ALPeopleList.using(ask_number=True,target_number=1)
-  - defense_counsel: ALPeopleList.using(ask_number=True,target_number=1)
-
+  - ada: ALIndividual
+  - defense_counsel: ALIndividual
 ---
 mandatory: True
 id: main_order_case_integrity_review_form
