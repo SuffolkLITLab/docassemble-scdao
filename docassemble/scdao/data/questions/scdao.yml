@@ -138,7 +138,7 @@ continue button field: case_integrity_review_form_intro
 question: |
   Case Integrity Review Form
 subquestion: |
-  his form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.
+  This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.
 ---
 id: Review your form before you sign it
 continue button field: case_integrity_review_form_preview_question
