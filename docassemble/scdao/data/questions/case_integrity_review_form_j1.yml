@@ -120,7 +120,7 @@ code: |
   docket_numbers.gather()
   defendants.gather()
   set_progress(18.18)
-  courts.gather()
+  trial_court
   witnesses.gather()
   set_progress(27.27)
   judge
@@ -379,7 +379,7 @@ attachment:
       - "docket_number": ${ docket_numbers[0] }
       - "defendant_name_last": ${ defendants[0].name.last }
       - "defendant_name_first": ${ defendants[0].name.first }
-      - "court_name": ${ courts[0] }
+      - "trial_court_name": ${ trial_court[0] }
       - "witness": ${ witnesses[0] }
       - "judge1_name_full": ${ judge }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
@@ -774,7 +774,7 @@ review:
       % for my_var in defendants:
         * ${ my_var }
       % endfor
-  - Edit: courts[0].name.first
+  - Edit: trial_court.name.first
     button: |
       # NOTE: a question block with 'courts.revisit'
       # lets the user edit all of the items at once
