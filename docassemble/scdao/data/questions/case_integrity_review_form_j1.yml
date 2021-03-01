@@ -186,13 +186,13 @@ fields:
     datatype: date
   - 'Appointed?': appointed
     datatype: yesno
-  - 'Written': written
-    datatype: yesno
   - 'Retained?': retained
     datatype: yesno
-  - 'Oral': oral
-    datatype: yesno
   - 'Neither - Defendant Pro Se': neither_defendant_pro_se
+    datatype: yesno
+  - 'Written': written
+    datatype: yesno
+  - 'Oral': oral
     datatype: yesno
   - 'None': none
     datatype: yesno
@@ -398,10 +398,10 @@ attachment:
       - "decision_date": ${ decision_date }
       - "next_court_date": ${ next_court_date }
       - "appointed": ${ appointed }
-      - "written": ${ written }
       - "retained": ${ retained }
-      - "oral": ${ oral }
       - "neither_defendant_pro_se": ${ neither_defendant_pro_se }
+      - "written": ${ written }
+      - "oral": ${ oral }
       - "None": ${ none }
       - "requested": ${ requested }
       - "charges": ${ charges }
@@ -510,22 +510,22 @@ review:
     button: |
       **Appointed?**:
       ${ word(yesno(appointed)) }
-  - Edit: written
-    button: |
-      **Written**:
-      ${ word(yesno(written)) }
   - Edit: retained
     button: |
       **Retained?**:
       ${ word(yesno(retained)) }
-  - Edit: oral
-    button: |
-      **Oral**:
-      ${ word(yesno(oral)) }
   - Edit: neither_defendant_pro_se
     button: |
       **Neither - Defendant Pro Se**:
       ${ word(yesno(neither_defendant_pro_se)) }
+  - Edit: written
+    button: |
+      **Written**:
+      ${ word(yesno(written)) }
+  - Edit: oral
+    button: |
+      **Oral**:
+      ${ word(yesno(oral)) }
   - Edit: none
     button: |
       **None**:
