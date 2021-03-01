@@ -103,7 +103,7 @@ id: interview_order_case_integrity_review_form
 code: |
   # This is a placeholder to control order of questions in this interview
   # Set the allowed courts for this interview
-  allowed_courts = interview_metadata["case_integrity_review_form"]["allowed courts"]
+  allowed_trial_court = interview_metadata["case_integrity_review_form"]["allowed courts"]
   nav.set_section('review_case_integrity_review_form')
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
@@ -120,7 +120,7 @@ code: |
   docket_numbers.gather()
   defendants.gather()
   set_progress(18.18)
-  courts.gather()
+  trial_court
   witnesses.gather()
   set_progress(27.27)
   judge
@@ -384,7 +384,7 @@ attachment:
       - "docket_number": ${ docket_numbers[0] }
       - "defendant_name_last": ${ defendants[0].name.last }
       - "defendant_name_first": ${ defendants[0].name.first }
-      - "court_name": ${ courts[0] }
+      - "trial_court": ${ trial_court }
       - "witness": ${ witnesses[0] }
       - "judge1_name_full": ${ judge }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
@@ -768,7 +768,6 @@ review:
       # NOTE: a question block with 'docket_numbers.revisit'
       # lets the user edit all of the items at once
       **docket_numbers**
-
       % for my_var in docket_numbers:
         * ${ my_var }
       % endfor
@@ -777,16 +776,14 @@ review:
       # NOTE: a question block with 'defendants.revisit'
       # lets the user edit all of the items at once
       **defendants**
-
       % for my_var in defendants:
         * ${ my_var }
       % endfor
-  - Edit: courts[0].name.first
+  - Edit: trial_court[0].name.first
     button: |
       # NOTE: a question block with 'courts.revisit'
       # lets the user edit all of the items at once
       **courts**
-
       % for my_var in courts:
         * ${ my_var }
       % endfor
@@ -795,7 +792,6 @@ review:
       # NOTE: a question block with 'witnesses.revisit'
       # lets the user edit all of the items at once
       **witnesses**
-
       % for my_var in witnesses:
         * ${ my_var }
       % endfor
