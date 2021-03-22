@@ -6,6 +6,7 @@ features:
   javascript:
     - jquery.magicsearch.js
     - charges.js
+    - judges.js
   css: jquery.magicsearch.css
 ---
 comment: |

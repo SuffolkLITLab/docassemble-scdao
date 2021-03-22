@@ -2,6 +2,13 @@ include:
   - docassemble.AssemblyLine:al_package.yml
   - docassemble.MassAccess:massaccess.yml
 ---
+features:
+  javascript:
+    - jquery.magicsearch.js
+    - charges.js
+    - judges.js
+  css: jquery.magicsearch.css
+---
 comment: |
   The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
 metadata:
@@ -202,8 +209,11 @@ id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
-  - 'Charges': charges
-    maxlength: 630
+  - "Charges": charges
+    maxlength: 600
+  - html: |
+      The charges are:
+      <input class="magicsearch multi" id="basic" placeholder="search names...">   </input>
   - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
     required: False
     maxlength: 49
@@ -215,6 +225,16 @@ fields:
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
     maxlength: 39
+script: |
+  <script>
+    $("#basic").magicsearch({
+    dataSource: dataSource,
+    multiple: true,
+    fields: ["firstName","lastName"],
+    multiField: "firstName",
+    id:"id",
+    format:"%firstName% · %lastName%"});
+  </script>
 ---
 question: |
  If applicable, what was item suppressed on most serious charge?
