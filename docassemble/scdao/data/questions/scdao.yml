@@ -1,5 +1,4 @@
 include:
-# hello
   - docassemble.AssemblyLine:al_package.yml
   - docassemble.MassAccess:massaccess.yml
 ---
@@ -904,7 +903,7 @@ review:
       **witnesses**
       % for my_var in witnesses:
         * ${ my_var }
-      % endfor
+      % endfors
   - Edit: judges
     button: |
       **judges**:
