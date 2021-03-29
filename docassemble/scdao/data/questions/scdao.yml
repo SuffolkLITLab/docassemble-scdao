@@ -2,13 +2,6 @@ include:
   - docassemble.AssemblyLine:al_package.yml
   - docassemble.MassAccess:massaccess.yml
 ---
-features:
-  javascript:
-    - jquery.magicsearch.js
-    - charges.js
-    - judges.js
-  css: jquery.magicsearch.css
----
 comment: |
   The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
 metadata:
@@ -81,9 +74,8 @@ sections:
   - review_case_integrity_review_form: Review your answers
 ---
 objects:
-  - judge: ALPeopleList.using(there_are_any=True)
+  - judges: ALPeopleList.using(there_are_any=True)
   - defendants: ALPeopleList.using(ask_number=True,target_number=1)
-  - witnesses: ALPeopleList
   - ada: ALIndividual
   - defense_counsel: ALIndividual
 ---
@@ -100,10 +92,97 @@ code: |
   case_integrity_review_form
   signature_date
   # Save (anonymized) interview statistics.
-  store_variables_snapshot(data={'zip': users[0].address.zip})
+  store_variables_snapshot(data=saved_variables)
   case_integrity_review_form_preview_question  # Pre-canned preview screen
   basic_questions_signature_flow
   case_integrity_review_form_download
+---
+variable name: saved_variables
+data: 
+       "docket_number": ${ docket_number }
+       "defendant_name_last": ${ defendant.name.last }
+       "defendant_name_first": ${ defendant.name.first }
+       "trial_court_name": ${ trial_court }
+       "judge1_name_full": ${ judge1_name_full }
+       "defense_counsel_name_first": ${ defense_counsel.name.first }
+       "judge2_name_full": ${ judge2_name_full }
+       "ada_name_first": ${ ada.name.first }
+       "defense_counsel_name_last": ${ defense_counsel.name.last }
+       "ada_name_last": ${ ada.name.last }
+       "pcf_number": ${ pcf_number }
+       "lead_database_review_yes": ${ lead_database_review_yes }
+       "lead_database_review_no": ${ lead_database_review_no }
+       "request_type1": ${ request_type1 }
+       "request_type2": ${ request_type2 }
+       "incident_date": ${ incident_date }
+       "charged_date": ${ charged_date }
+       "hearing_date": ${ hearing_date }
+       "decision_date": ${ decision_date }
+       "next_court_date": ${ next_court_date }
+       "appointed": ${ defense_appointed }
+       "retained": ${ defense_retained }
+       "neither_defendant_pro_se": ${ defense_pro_se }
+       "written": ${ findings_written }
+       "oral": ${ findings_oral }
+       "None": ${ findings_none }
+       "requested": ${ findings_requested }
+       "charges": ${ charges }
+       "item1_suppressed": ${ item1_suppressed }
+       "item2_suppressed": ${ item2_suppressed }
+       "cash_if_cash_please_write_amount_seize_in_other": ${ additional_suppressed_cash }
+       "cell_phone": ${ additional_suppressed_cell }
+       "drugs": ${ additional_suppressed_drugs }
+       "guns": ${ additional_suppressed_guns }
+       "statements": ${ additional_suppressed_statements }
+       "vehicle": ${ additional_suppressed_vehicle }
+       "paraphernalia": ${ additional_suppressed_paraphernaia }
+       "suppressed_check_box_other": ${ suppressed_check_box_other }
+       "suppressed_specific_other": ${ additional_suppressed_other }
+       "officer_no_show": ${ reason_officer_noshow }
+       "officer_credibility": ${ reason_officer_credibility }
+       "witness_no_show": ${ reason_witness_noshow }
+       "witness_credibility": ${ reason_witness_credibility }
+       "ci_reliability_basis_of_knowledge": ${ reason_reliability }
+       "legal_error_by_trial_court": ${ reason_error }
+       "misapplication_of_law_to_facts": ${ reason_misapplication }
+       "decision_reason_check_box_other": ${ decision_reason_check_box_other }
+       "decision_reason_specific_other": ${ reason_other }
+       "police_department": ${ police_department }
+       "unit_involved": ${ unit_involved }
+       "rule_thirteen_compliance_yes": ${ rule_thirteen_compliance }
+       "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
+       "motion_result": ${ motion_result }
+       "stop": ${ suppressed_stop }
+       "seizure": ${ suppressed_seizure }
+       "warrantless_search": ${ suppressed_warrantless }
+       "warrant_search": ${ suppressed_warrant }
+       "voluntariness": ${ suppressed_voluntary }
+       "miranda": ${ suppressed_miranda }
+       "standing_expectation_of_privacy": ${ suppressed_standing_privacy }
+       "lack_of_reasonable_suspicion": ${ suppressed_suspicion }
+       "lack_of_probable_cause": ${ suppressed_probable_cause }
+       "suppressed_order_problem_check_box_other": ${ suppressed_order_problem_check_box_other }
+       "suppressed_order_problem_specific_other": ${ suppressed_other }
+     "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
+       "video": ${ commonwealth_video }
+       "audio": ${ commonwealth_audio }
+       "photos": ${ commonwealth_photos }
+       "documents": ${ commonwealth_documents }
+       "physical_evidence": ${ commonwealth_evidence }
+       "commonwealth_evidence_check_box_other": ${ commonwealth_evidence_check_box_other }
+       "commonwealth_evidence_specific_other": ${ commonwealth_other }
+       "evidence_hearing_summary": ${ evidence_hearing_summary }
+       "commonwealth_hearing_argument": ${ commonwealth_hearing_argument }
+       "decision_basis": ${ decision_basis }
+       "recommendation": ${ recommendation }
+       "application_for_complaint": ${ documents_application }
+       "complaint": ${ documents_complaint }
+       "police_report": ${ documents_report }
+       "docket_sheet": ${ documents_sheet }
+       "defendants_signed_motion_and_affidavit": ${ documents_signed }
+       "defendants_bop": ${ documents_bop }
+       "motion_judges_written_findings_and_rulings_if_any": ${ documents_motion_judge }
+       "commonwealths_opposition_if_any": ${ documents_opposition }
 ---
 id: interview_order_case_integrity_review_form
 code: |
@@ -123,13 +202,12 @@ code: |
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
-  docket_numbers.gather()
+  docket_number
   defendants.gather()
   set_progress(18.18)
   trial_court
-  witnesses.gather()
   set_progress(27.27)
-  judge
+  judges
   defense_counsel.name.first
   set_progress(36.36)
   ada.name.first
@@ -167,9 +245,19 @@ fields:
     required: False
     maxlength: 40
   - 'LEAD database review?': lead_database_review
-    datatype: yesno
-  - 'Type of Motion / Action / Review Request': request_type1
-    maxlength: 44
+    datatype: yesno 
+  - Type of Motion / Action / Review Request: request_type1
+    choices:
+      - No Bill: request_none
+      - Suppression (in part or whole): request_suppression
+      - Mistrial (on one or more charges): request_mistrial
+      - Directed Verdict: request_directed
+      - Systemic Incident / Violation: request_violation
+      - Other: request_other
+  - Other: request_other
+    show if:
+      variable: request_type1
+      is: Other
   - 'Type of Motion / Action / Review Request': request_type2
     required: False
     maxlength: 44
@@ -190,30 +278,24 @@ fields:
     datatype: date
   - 'Next Court Date': next_court_date
     datatype: date
-  - 'Appointed?': appointed
-    datatype: yesno
-  - 'Retained?': retained
-    datatype: yesno
-  - 'Neither - Defendant Pro Se': neither_defendant_pro_se
-    datatype: yesno
-  - 'Written': written
-    datatype: yesno
-  - 'Oral': oral
-    datatype: yesno
-  - 'None': none
-    datatype: yesno
-  - 'Requested': requested
-    datatype: yesno
+  - 'Was Defense counsel -': was_defense_counsel
+    choices:
+      - Appointed?: defense_appointed
+      - Retained?: defense_retained
+      - Neither - defendant pro se: defense_pro_se
+  - Findings, Rulings and Order: findings
+    choices:
+    - Written: findings_written
+    - Oral: _findings_oral
+    - None: findings_none
+    - Requested: findings_requested
 ---
 id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
-  - "Charges": charges
-    maxlength: 600
-  - html: |
-      The charges are:
-      <input class="magicsearch multi" id="basic" placeholder="search names...">   </input>
+  - 'Charges': charges
+    datatype: area
   - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
     required: False
     maxlength: 49
@@ -221,23 +303,33 @@ fields:
     required: False
     maxlength: 49
   - 'Police Department Involved': police_department
-    maxlength: 44
+    choices:
+    - BPD - District A-1: police_bpd_a1
+    - BPD - District A-15: police_bdp_a15
+    - BPD - District A-7: police_bdp_a7
+    - BPD - District B-2: police_bdp_b2
+    - BPD - District B-3: police_bdp_b3
+    - BPD - District C-6: police_bdp_c6
+    - BPD - District C-11: police_bdp_c11
+    - BPD - District D-4: police_bdp_d4
+    - BPD - District D-14: police_bdp_d14
+    - BPD - District E-6: police_bdp_e6
+    - BPD - District E-13: police_bdp_e13
+    - BPD - District E-18: police_bdp_e18
+    - Chelsea Police Dept: police_chelsea
+    - Revere Police Dept: police_revere
+    - Mass State Police: police_mass
+    - Winthrop Police Dept: police_winthrop
+    - MBTA: police_mbta
+    - University / College Dept: police_university
+    - Hospital Dept: police_hospital
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
     maxlength: 39
-script: |
-  <script>
-    $("#basic").magicsearch({
-    dataSource: dataSource,
-    multiple: true,
-    fields: ["firstName","lastName"],
-    multiField: "firstName",
-    id:"id",
-    format:"%firstName% · %lastName%"});
-  </script>
 ---
+id: Specifications cont d
 question: |
- If applicable, what was item suppressed on most serious charge?
+ If applicable, what was the item suppressed on most serious charge?
 fields:
   - Check all that apply: serious_suppressed
     choices:
@@ -253,7 +345,11 @@ fields:
     show if:
       variable: serious_suppressed
       is: Other
+  - 'If applicable, what was item suppressed on most serious charge?': serious_suppressed2
+    required: False
+    maxlength: 44
 ---
+id: Specifications cont d
 question: |
  Reasons for decision?
 fields:
@@ -278,56 +374,60 @@ question: |
 subquestion: |
   Please fill out the following questions about what took place.
 fields:
+  - Motion to Suppress / Dismiss was:: motion_result
+    choices:
+      - Opposed
+      - Assented-to
+      - No position taken
   - 'Rule 13 Compliance?': rule_thirteen_compliance
     datatype: yesno
-  - 'Motion to Suppress / Dismiss was:': motion_result
-    maxlength: 44
-  - 'Stop': stop
-    required: False
-    datatype: yesno
-  - 'Seizure': seizure
-    required: False
-    datatype: yesno
-  - 'Warrantless search': warrantless_search
-    required: False
-    datatype: yesno
-  - 'Warrant search': warrant_search
-    datatype: yesno
-  - 'Voluntariness': voluntariness
-    required: False
-    datatype: yesno
-  - 'Miranda': miranda
-    required: False
-    datatype: yesno
-  - 'Standing expectation of privacy': standing_expectation_of_privacy
-    required: False
-    datatype: yesno
-  - 'Lack of reasonable suspicion': lack_of_reasonable_suspicion
-    required: False
-    datatype: yesno
-  - 'Lack of probable cause': lack_of_probable_cause
-    required: False
-    datatype: yesno
-  - 'Other': suppressed_order_problem_check_box_other
-    datatype: yesno
-  - 'Please specify': suppressed_order_problem_specific_other
-    maxlength: 44
-  - 'Officer (if more then one officer testified, please check "Other" and say how many)': officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many
-    datatype: yesno
-  - 'Video': video
-    datatype: yesno
-  - 'Audio': audio
-    datatype: yesno
-  - 'Photos': photos
-    datatype: yesno
-  - 'Documents': documents
-    datatype: yesno
-  - 'Physical evidence': physical_evidence
-    datatype: yesno
-  - 'Other': commonwealth_evidence_check_box_other
-    datatype: yesno
-  - 'Please specify.': commonwealth_evidence_specific_other
-    maxlength: 69
+---
+mandatory: True
+id: Specifications cont d
+question: |
+  Specifications cont'd
+subquestion: |
+  If a suppression order, was suppression because of problem with (check all that apply):
+fields:
+  - Some radio buttons: suppressed_order
+    datatype: radio
+    choices:
+      - Stop: suppressed_stop
+      - Seizure: suppressed_seizure
+      - Warrantless Search: suppressed_warrantless
+      - Warrant Search: suppressed_warrant
+      - Voluntariness: suppressed_voluntary
+      - Miranda: suppressed_miranda
+      - Standing / Expectation of Privacy: suppressed_standing_privacy
+      - Lack of reasonable suspicion: suppressed_suspicion
+      - Lack of probable cause: suppressed_probable_cause
+      - Other: other
+  - Other choice: suppressed_other
+    show if: 
+      variable: suppressed_order
+      is: other
+---
+mandatory: True
+question: |
+  Specifications cont'd
+subquestion: |
+  Commonwealth's evidence was (check all that apply):
+fields:
+  - Some radio buttons: commonwealth_evidence
+    datatype: radio
+    choices:
+      - Officer (if more than one officer testified, please check "Other" and say how many): commonwealth_officer
+      - Witness: commonwealth_witness
+      - Video: commonwealth_video
+      - Audio: commonwealth_audio
+      - Photos: commonwealth_photos
+      - Documents: commonwealth_documents
+      - Physical evidence: commonwealth_evidence
+      - Other: commonwealth_other
+  - Other choice: commonwealth_other
+    show if: 
+      variable: commonwealth_evidence
+      is: other
 ---
 id: Specifications cont d
 question: |
@@ -337,35 +437,31 @@ subquestion: |
 fields:
   - 'Summary of evidence at hearing:': evidence_hearing_summary
     maxlength: 720
-  - "Commonwealth's legal argument at the hearing:": commonwealth_hearing_argument
+  - "Commonwealth's legal argument at the hearing:": commonwealth_legal_argument
     maxlength: 810
   - "Basis for judge's decision (if no written findings and rulings)": decision_basis
     maxlength: 720
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
     maxlength: 720
 ---
+mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
 subquestion: |
-  Please fill out the following:
+ Documents included:
 fields:
-  - 'Application for complaint': application_for_complaint
-    datatype: yesno
-  - 'Complaint': complaint
-    datatype: yesno
-  - 'Police report': police_report
-    datatype: yesno
-  - 'Docket sheet': docket_sheet
-    datatype: yesno
-  - 'Defendants signed motion and affidavit': defendants_signed_motion_and_affidavit
-    datatype: yesno
-  - 'Defendants bop': defendants_bop
-    datatype: yesno
-  - 'Motion judges written findings and rulings, if any': motion_judges_written_findings_and_rulings_if_any
-    datatype: yesno
-  - 'Commonwealths opposition, if any': commonwealths_opposition_if_any
-    datatype: yesno
+  - Some radio buttons: documents_included
+    datatype: radio
+    choices:
+      - Application for complaint: documents_application
+      - Complaint: documents_complaint
+      - Police Report: documents_report
+      - Docket sheet: documents_docket
+      - Defendant's signed motion and affidavit: documents_signed
+      - Defendant's BOP: documents_bop
+      - Motion judge's written findings and rulings, if any: documents_motion_judge
+      - Commonwealth's opposition, if any: documents_opposition
 ---
 progress: 100
 id: download
@@ -382,7 +478,7 @@ subquestion: |
   ${ al_user_bundle.send_button_html() }
 ---
 objects:
-  - case_integrity_review_form_attachment: ALDocument.using(title="his form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.", filename="case_integrity_review_form", enabled=True, has_addendum=False)
+  - case_integrity_review_form_attachment: ALDocument.using(title="This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.", filename="case_integrity_review_form", enabled=True, has_addendum=False)
 ---
 objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[case_integrity_review_form_attachment], filename="case_integrity_review_form.pdf", title="All forms to download for your records")
@@ -393,22 +489,22 @@ attachment:
     name: Case Integrity Review Form
     filename: Case-Integrity-Review-Form
     skip undefined: True
-    pdf template file: case_integrity_review_form_2020-09-15_4.pdf
+    pdf template file: 1case_integrity_review_form.pdf
     fields: 
-      - "docket_number": ${ docket_numbers[0] }
-      - "defendant_name_last": ${ defendants[0].name.last }
-      - "defendant_name_first": ${ defendants[0].name.first }
-      - "trial_court_name": ${ trial_court[0] }
-      - "witness": ${ witnesses[0] }
-      - "judge1_name_full": ${ judge }
+      - "docket_number": ${ docket_number }
+      - "defendant_name_last": ${ defendant.name.last }
+      - "defendant_name_first": ${ defendant.name.first }
+      - "trial_court_name": ${ trial_court }
+      # - "witness": ${ witnesses[0] }
+      - "judge1_name_full": ${ judge1_name_full }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
-      - "judge2_name_full": ${ judge }
+      - "judge2_name_full": ${ judge2_name_full }
       - "ada_name_first": ${ ada.name.first }
       - "defense_counsel_name_last": ${ defense_counsel.name.last }
       - "ada_name_last": ${ ada.name.last }
       - "pcf_number": ${ pcf_number }
-      - "lead_database_review_yes": ${ lead_database_review }
-      - "lead_database_review_no": ${ not lead_database_review }
+      - "lead_database_review_yes": ${ lead_database_review_yes }
+      - "lead_database_review_no": ${ lead_database_review_no }
       - "request_type1": ${ request_type1 }
       - "request_type2": ${ request_type2 }
       - "incident_date": ${ incident_date }
@@ -416,71 +512,70 @@ attachment:
       - "hearing_date": ${ hearing_date }
       - "decision_date": ${ decision_date }
       - "next_court_date": ${ next_court_date }
-      - "appointed": ${ appointed }
-      - "retained": ${ retained }
-      - "neither_defendant_pro_se": ${ neither_defendant_pro_se }
-      - "written": ${ written }
-      - "oral": ${ oral }
-      - "None": ${ none }
-      - "requested": ${ requested }
+      - "appointed": ${ defense_appointed }
+      - "retained": ${ defense_retained }
+      - "neither_defendant_pro_se": ${ defense_pro_se }
+      - "written": ${ findings_written }
+      - "oral": ${ findings_oral }
+      - "None": ${ findings_none }
+      - "requested": ${ findings_requested }
       - "charges": ${ charges }
       - "item1_suppressed": ${ item1_suppressed }
       - "item2_suppressed": ${ item2_suppressed }
-      - "cash_if_cash_please_write_amount_seize_in_other": ${ cash_if_cash_please_write_amount_seize_in_other }
-      - "cell_phone": ${ cell_phone }
-      - "drugs": ${ drugs }
-      - "guns": ${ guns }
-      - "statements": ${ statements }
-      - "vehicle": ${ vehicle }
-      - "paraphernalia": ${ paraphernalia }
+      - "cash_if_cash_please_write_amount_seize_in_other": ${ additional_suppressed_cash }
+      - "cell_phone": ${ additional_suppressed_cell }
+      - "drugs": ${ additional_suppressed_drugs }
+      - "guns": ${ additional_suppressed_guns }
+      - "statements": ${ additional_suppressed_statements }
+      - "vehicle": ${ additional_suppressed_vehicle }
+      - "paraphernalia": ${ additional_suppressed_paraphernaia }
       - "suppressed_check_box_other": ${ suppressed_check_box_other }
-      - "suppressed_specific_other": ${ suppressed_specific_other }
-      - "officer_no_show": ${ officer_no_show }
-      - "officer_credibility": ${ officer_credibility }
-      - "witness_no_show": ${ witness_no_show }
-      - "witness_credibility": ${ witness_credibility }
-      - "ci_reliability_basis_of_knowledge": ${ ci_reliability_basis_of_knowledge }
-      - "legal_error_by_trial_court": ${ legal_error_by_trial_court }
-      - "misapplication_of_law_to_facts": ${ misapplication_of_law_to_facts }
+      - "suppressed_specific_other": ${ additional_suppressed_other }
+      - "officer_no_show": ${ reason_officer_noshow }
+      - "officer_credibility": ${ reason_officer_credibility }
+      - "witness_no_show": ${ reason_witness_noshow }
+      - "witness_credibility": ${ reason_witness_credibility }
+      - "ci_reliability_basis_of_knowledge": ${ reason_reliability }
+      - "legal_error_by_trial_court": ${ reason_error }
+      - "misapplication_of_law_to_facts": ${ reason_misapplication }
       - "decision_reason_check_box_other": ${ decision_reason_check_box_other }
-      - "decision_reason_specific_other": ${ decision_reason_specific_other }
+      - "decision_reason_specific_other": ${ reason_other }
       - "police_department": ${ police_department }
       - "unit_involved": ${ unit_involved }
       - "rule_thirteen_compliance_yes": ${ rule_thirteen_compliance }
       - "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
       - "motion_result": ${ motion_result }
-      - "stop": ${ stop }
-      - "seizure": ${ seizure }
-      - "warrantless_search": ${ warrantless_search }
-      - "warrant_search": ${ warrant_search }
-      - "voluntariness": ${ voluntariness }
-      - "miranda": ${ miranda }
-      - "standing_expectation_of_privacy": ${ standing_expectation_of_privacy }
-      - "lack_of_reasonable_suspicion": ${ lack_of_reasonable_suspicion }
-      - "lack_of_probable_cause": ${ lack_of_probable_cause }
+      - "stop": ${ suppressed_stop }
+      - "seizure": ${ suppressed_seizure }
+      - "warrantless_search": ${ suppressed_warrantless }
+      - "warrant_search": ${ suppressed_warrant }
+      - "voluntariness": ${ suppressed_voluntary }
+      - "miranda": ${ suppressed_miranda }
+      - "standing_expectation_of_privacy": ${ suppressed_standing_privacy }
+      - "lack_of_reasonable_suspicion": ${ suppressed_suspicion }
+      - "lack_of_probable_cause": ${ suppressed_probable_cause }
       - "suppressed_order_problem_check_box_other": ${ suppressed_order_problem_check_box_other }
-      - "suppressed_order_problem_specific_other": ${ suppressed_order_problem_specific_other }
-      - "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many }
-      - "video": ${ video }
-      - "audio": ${ audio }
-      - "photos": ${ photos }
-      - "documents": ${ documents }
-      - "physical_evidence": ${ physical_evidence }
+      - "suppressed_order_problem_specific_other": ${ suppressed_other }
+      - "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
+      - "video": ${ commonwealth_video }
+      - "audio": ${ commonwealth_audio }
+      - "photos": ${ commonwealth_photos }
+      - "documents": ${ commonwealth_documents }
+      - "physical_evidence": ${ commonwealth_evidence }
       - "commonwealth_evidence_check_box_other": ${ commonwealth_evidence_check_box_other }
-      - "commonwealth_evidence_specific_other": ${ commonwealth_evidence_specific_other }
+      - "commonwealth_evidence_specific_other": ${ commonwealth_other }
       - "evidence_hearing_summary": ${ evidence_hearing_summary }
       - "commonwealth_hearing_argument": ${ commonwealth_hearing_argument }
       - "decision_basis": ${ decision_basis }
       - "recommendation": ${ recommendation }
-      - "`82": ${  }
-      - "application_for_complaint": ${ application_for_complaint }
-      - "complaint": ${ complaint }
-      - "police_report": ${ police_report }
-      - "docket_sheet": ${ docket_sheet }
-      - "defendants_signed_motion_and_affidavit": ${ defendants_signed_motion_and_affidavit }
-      - "defendants_bop": ${ defendants_bop }
-      - "motion_judges_written_findings_and_rulings_if_any": ${ motion_judges_written_findings_and_rulings_if_any }
-      - "commonwealths_opposition_if_any": ${ commonwealths_opposition_if_any }
+      - "application_for_complaint": ${ documents_application }
+      - "complaint": ${ documents_complaint }
+      - "police_report": ${ documents_report }
+      - "docket_sheet": ${ documents_sheet }
+      - "defendants_signed_motion_and_affidavit": ${ documents_signed }
+      - "defendants_bop": ${ documents_bop }
+      - "motion_judges_written_findings_and_rulings_if_any": ${ documents_motion_judge }
+      - "commonwealths_opposition_if_any": ${ documents_opposition }
 ---
 id: case_integrity_review_form review screen
 event: review_case_integrity_review_form
@@ -777,12 +872,12 @@ review:
     button: |
       **Commonwealths opposition, if any**:
       ${ word(yesno(commonwealths_opposition_if_any)) }
-  - Edit: docket_numbers[0].name.first
+  - Edit: docket_number.name.first
     button: |
-      # NOTE: a question block with 'docket_numbers.revisit'
+      # NOTE: a question block with 'docket_number.revisit'
       # lets the user edit all of the items at once
-      **docket_numbers**
-      % for my_var in docket_numbers:
+      **docket_number**
+      % for my_var in docket_number:
         * ${ my_var }
       % endfor
   - Edit: defendants[0].name.last
@@ -808,11 +903,11 @@ review:
       **witnesses**
       % for my_var in witnesses:
         * ${ my_var }
-      % endfor
-  - Edit: judge
+      % endfors
+  - Edit: judges
     button: |
-      **judge**:
-      ${ judge }
+      **judges**:
+      ${ judges }
   - Edit: defense_counsel.name.first
     button: |
       **defense_counsel.name.first**:
