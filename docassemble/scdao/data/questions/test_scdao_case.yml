@@ -213,13 +213,13 @@ id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
-  - Charges: defendant_charges[0].charges
+  - Charges: defendant_charges
     datatype: charges
 #  - "Charges": charges
 #    maxlength: 600
-  - html: |
-      The charges are:
-      <input class="magicsearch multi" id="basic" placeholder="search names...">   </input>
+#  - html: |
+#      The charges are:
+#      <input class="magicsearch multi" id="basic" placeholder="search names...">   </input>
   - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
     required: False
     maxlength: 49
@@ -231,16 +231,6 @@ fields:
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
     maxlength: 39
-script: |
-  <script>
-    $("#basic").magicsearch({
-    dataSource: dataSource,
-    multiple: true,
-    fields: ["firstName","lastName"],
-    multiField: "firstName",
-    id:"id",
-    format:"%firstName% · %lastName%"});
-  </script>
 ---
 question: |
  If applicable, what was item suppressed on most serious charge?
