@@ -4,20 +4,40 @@ import re
 class Charges(CustomDataType):
     name = 'charges'
     container_class = 'da-charges-container'
-    input_class = 'da-charges'
+    input_class = 'magicsearch multi'
+    #input_type = 'charges'
     javascript = """\
-$.validator.addMethod('charges', function(value, element, params){
-    console.log('HHHHHHHHHHHHHHHHH1');
-  return true;
-});
-"""
-    jq_rule = 'charges'
+    var dataSource;
+    if(dataSource){
+        $(document).on('daPageLoad', function(){
+            $(".magicsearch").magicsearch({
+                dataSource: dataSource,
+                multiple: true,
+                fields: ["firstName","lastName"],
+                multiField: "firstName",
+                hidden:true,
+                id:"id",
+                format:"%firstName% · %lastName%"
+            });
+        });
+        $.validator.addMethod('charges', function(value, element, params){
+            return true;
+        });
+    };
+    """
+
+    is_object = True
+    jq_rule = 'Charges'
     jq_message = 'You need to enter the charges.'
-    print('HHHHHHHHHHHHHHHHH2')
+
     @classmethod
     def validate(cls, item):
-        #item = str(item).strip()
-        #m = re.search(r'^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$', item)
-        #if item == '' or m:
         return True
-        #raise DAValidationError("A charge needs to be found in the database")
+
+    @classmethod
+    def transform(cls, item):
+        #ds=datasource[int(item)]
+        #return ds.firstName+' '+ds.lastName
+        return item
+
+

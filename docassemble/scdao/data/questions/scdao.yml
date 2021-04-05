@@ -2,6 +2,14 @@ include:
   - docassemble.AssemblyLine:al_package.yml
   - docassemble.MassAccess:massaccess.yml
 ---
+features:
+  javascript:
+    - jquery.magicsearch.js
+    - charges.js
+    - judges.js
+  css: jquery.magicsearch.css
+  python: chargesCustomDataType.py
+---
 comment: |
   The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
 metadata:
@@ -100,8 +108,8 @@ code: |
 variable name: saved_variables
 data: 
        "docket_number": ${ docket_number }
-       "defendant_name_last": ${ defendant.name.last }
-       "defendant_name_first": ${ defendant.name.first }
+       "defendant_name_last": ${ defendants[0].name.last }
+       "defendant_name_first": ${ defendants[0].name.first }
        "trial_court_name": ${ trial_court }
        "judge1_name_full": ${ judge1_name_full }
        "defense_counsel_name_first": ${ defense_counsel.name.first }
@@ -126,7 +134,7 @@ data:
        "oral": ${ findings_oral }
        "None": ${ findings_none }
        "requested": ${ findings_requested }
-       "charges": ${ charges }
+       "charges": ${ defendant_charges }
        "item1_suppressed": ${ item1_suppressed }
        "item2_suppressed": ${ item2_suppressed }
        "cash_if_cash_please_write_amount_seize_in_other": ${ additional_suppressed_cash }
@@ -163,7 +171,7 @@ data:
        "lack_of_probable_cause": ${ suppressed_probable_cause }
        "suppressed_order_problem_check_box_other": ${ suppressed_order_problem_check_box_other }
        "suppressed_order_problem_specific_other": ${ suppressed_other }
-     "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
+       "officer_if_more_then_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
        "video": ${ commonwealth_video }
        "audio": ${ commonwealth_audio }
        "photos": ${ commonwealth_photos }
@@ -195,7 +203,7 @@ code: |
   user_ask_role
   pcf_number
   incident_date
-  charges
+  defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
   evidence_hearing_summary
@@ -294,8 +302,8 @@ id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
-  - 'Charges': charges
-    datatype: area
+  - Charges: defendant_charges
+    datatype: charges
   - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
     required: False
     maxlength: 49
@@ -903,7 +911,7 @@ review:
       **witnesses**
       % for my_var in witnesses:
         * ${ my_var }
-      % endfors
+      % endfor
   - Edit: judges
     button: |
       **judges**:
