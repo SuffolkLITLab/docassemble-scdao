@@ -283,7 +283,7 @@ fields:
       - Appointed?: defense_appointed
       - Retained?: defense_retained
       - Neither - defendant pro se: defense_pro_se
-  - Findings, Rulings and Order: findings
+  - 'Findings, Rulings and Order': findings
     choices:
     - Written: findings_written
     - Oral: _findings_oral
@@ -296,12 +296,6 @@ question: |
 fields:
   - 'Charges': charges
     datatype: area
-  - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
-    required: False
-    maxlength: 49
-  - 'If applicable, what was item suppressed on most serious charge?': item2_suppressed
-    required: False
-    maxlength: 49
   - 'Police Department Involved': police_department
     choices:
     - BPD - District A-1: police_bpd_a1
@@ -348,6 +342,22 @@ fields:
   - 'If applicable, what was item suppressed on most serious charge?': serious_suppressed2
     required: False
     maxlength: 44
+  - 'If applicable, was anything else suppressed by the court?'
+fields:
+ - Check all that apply: else_suppressed
+  choices:
+      - Cash (if cash, please write amount seize in "Other")
+      - Cell phone
+      - Drugs
+      - Guns
+      - Statements
+      - Vehicle
+      - Paraphernalia
+      - Other
+  - Other: else_suppressed
+    show if:
+      variable: else_suppressed
+      is: Other
 ---
 id: Specifications cont d
 question: |
@@ -620,34 +630,14 @@ review:
     button: |
       **Next Court Date**:
       ${ next_court_date }
-  - Edit: appointed
+  - Edit: was_defense_counsel
     button: |
-      **Appointed?**:
-      ${ word(yesno(appointed)) }
-  - Edit: retained
+      **Was Defense counsel**:
+      ${ was_defense_counsel }
+  - Edit: findings
     button: |
-      **Retained?**:
-      ${ word(yesno(retained)) }
-  - Edit: neither_defendant_pro_se
-    button: |
-      **Neither - Defendant Pro Se**:
-      ${ word(yesno(neither_defendant_pro_se)) }
-  - Edit: written
-    button: |
-      **Written**:
-      ${ word(yesno(written)) }
-  - Edit: oral
-    button: |
-      **Oral**:
-      ${ word(yesno(oral)) }
-  - Edit: none
-    button: |
-      **None**:
-      ${ word(yesno(none)) }
-  - Edit: requested
-    button: |
-      **Requested**:
-      ${ word(yesno(requested)) }
+      **Findings, Rulings and Order**:
+      ${ findings }
   - Edit: charges
     button: |
       **Charges**:
@@ -660,42 +650,10 @@ review:
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
       ${ item2_suppressed }
-  - Edit: cash_if_cash_please_write_amount_seize_in_other
+  - Edit: serious_suppressed
     button: |
-      **Cash (if cash, please write amount seize in "Other")**:
-      ${ word(yesno(cash_if_cash_please_write_amount_seize_in_other)) }
-  - Edit: cell_phone
-    button: |
-      **Cell phone**:
-      ${ word(yesno(cell_phone)) }
-  - Edit: drugs
-    button: |
-      **Drugs**:
-      ${ word(yesno(drugs)) }
-  - Edit: guns
-    button: |
-      **Guns**:
-      ${ word(yesno(guns)) }
-  - Edit: statements
-    button: |
-      **Statements**:
-      ${ word(yesno(statements)) }
-  - Edit: vehicle
-    button: |
-      **Vehicle**:
-      ${ word(yesno(vehicle)) }
-  - Edit: paraphernalia
-    button: |
-      **Paraphernalia**:
-      ${ word(yesno(paraphernalia)) }
-  - Edit: suppressed_check_box_other
-    button: |
-      **Other**:
-      ${ word(yesno(suppressed_check_box_other)) }
-  - Edit: suppressed_specific_other
-    button: |
-      **Please specify:**:
-      ${ suppressed_specific_other }
+      **If applicable, what was the item suppressed on most serious charge?**:
+      ${ serious_suppressed }
   - Edit: officer_no_show
     button: |
       **Officer no-show**:

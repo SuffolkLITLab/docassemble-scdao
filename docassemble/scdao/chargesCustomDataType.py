@@ -4,16 +4,20 @@ import re
 class Charges(CustomDataType):
     name = 'charges'
     container_class = 'da-charges-container'
-    input_class = 'da-charges'
+    input_class = 'magicsearch multi'
     javascript = """\
-$.validator.addMethod('charges', function(value, element, params){
-    console.log('HHHHHHHHHHHHHHHHH1');
-  return true;
-});
-"""
+    $("#basic").magicsearch({
+    dataSource: dataSource,
+    multiple: true,
+    fields: ["firstName","lastName"],
+    multiField: "firstName",
+    id:"id",
+    format:"%firstName% · %lastName%"});
+    """
+
     jq_rule = 'charges'
     jq_message = 'You need to enter the charges.'
-    print('HHHHHHHHHHHHHHHHH2')
+
     @classmethod
     def validate(cls, item):
         #item = str(item).strip()
