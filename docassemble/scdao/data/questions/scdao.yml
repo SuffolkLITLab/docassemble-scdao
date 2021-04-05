@@ -75,7 +75,7 @@ sections:
 ---
 objects:
   - judges: ALPeopleList.using(there_are_any=True)
-  - defendants: ALPeopleList.using(ask_number=True,target_number=1)
+  - defendant: ALIndividual
   - ada: ALIndividual
   - defense_counsel: ALIndividual
 ---
@@ -110,8 +110,8 @@ data:
       "defense_counsel_name_last": ${ defense_counsel.name.last }
       "ada_name_last": ${ ada.name.last }
       "pcf_number": ${ pcf_number }
-      "lead_database_review_yes": ${ lead_database_review_yes }
-      "lead_database_review_no": ${ lead_database_review_no }
+      "lead_database_review": ${ lead_database_review }
+      "lead_database_review_no": ${ not lead_database_review }
       "request_type1": ${ request_type1 }
       "request_type2": ${ request_type2 }
       "incident_date": ${ incident_date }
@@ -150,9 +150,9 @@ data:
       "university_college_dept": ${ police_university }
       "hospital_dept": ${ police_hospital }
       "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
-      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
-      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed2 }
-      "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
+      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge": ${ serious_suppressed }
+      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge2": ${ serious_suppressed2 }
+      "if_applicable_was_anything_else_suppressed_by_the_court": ${ else_suppressed }
       "reason_for_decision": ${ decision_reason }
       "motion_to_suppress_dismiss_was": ${ motion_result }
       "rule_thirteen_compliance": ${ rule_thirteen_compliance }
@@ -187,7 +187,7 @@ data:
       "police_report": ${ documents_report }
       "docket_sheet": ${ documents_docket }
       "defendant_signed_motion_and_affidavit": ${ documents_signed }
-      "defendants_bop": ${ documents_bop }
+      "defendant_bop": ${ documents_bop }
       "motion_judge_written_findings_and_rulings_if_any": ${ documents_motion_judge }
       "commonwealth_opposition_if_any": ${ documents_opposition }
 ---
@@ -210,7 +210,7 @@ code: |
   # Set the answer file name.
   set_parts(subtitle=str(users))
   docket_number
-  defendants.gather()
+  defendant.gather()
   set_progress(18.18)
   trial_court
   set_progress(27.27)
@@ -330,11 +330,11 @@ fields:
 ---
 id: Specifications cont d
 question: |
- If applicable, what was the item suppressed on most serious charge?
+  If applicable, what was the item suppressed on most serious charge:
 fields:
   - Check all that apply: serious_suppressed
     choices:
-      - Cash (if cash, please write amount seize in "Other")
+      - Cash (if cash, please write amount seize in Other)
       - Cell phone
       - Drugs
       - Guns
@@ -346,14 +346,14 @@ fields:
     show if:
       variable: serious_suppressed
       is: Other
-  - 'If applicable, what was item suppressed on most serious charge?': serious_suppressed2
+  - 'If applicable, what was item suppressed on most serious charge': serious_suppressed2
     required: False
     maxlength: 44
-  - 'If applicable, was anything else suppressed by the court?'
+ - 'If applicable, was anything else suppressed by the court':
 fields:
- - Check all that apply: else_suppressed
-  choices:
-      - Cash (if cash, please write amount seize in "Other")
+  - Check all that apply: else_suppressed
+    choices:
+      - Cash (if cash, please write amount seize in Other)
       - Cell phone
       - Drugs
       - Guns
@@ -368,7 +368,7 @@ fields:
 ---
 id: Specifications cont d
 question: |
- Reasons for decision?
+  Reasons for decision
 fields:
   - Check all that apply: decision_reason
     choices:
@@ -562,7 +562,7 @@ attachment:
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed2 }
       - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
-      - "reason_for_decision": ${ decision_reason
+      - "reason_for_decision": ${ decision_reason }
       - "motion_to_suppress_dismiss_was": ${ motion_result }
       - "rule_thirteen_compliance": ${ rule_thirteen_compliance }
       - "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
@@ -596,7 +596,7 @@ attachment:
       - "police_report": ${ documents_report }
       - "docket_sheet": ${ documents_docket }
       - "defendant_signed_motion_and_affidavit": ${ documents_signed }
-      - "defendants_bop": ${ documents_bop }
+      - "defendant_bop": ${ documents_bop }
       - "motion_judge_written_findings_and_rulings_if_any": ${ documents_motion_judge }
       - "commonwealth_opposition_if_any": ${ documents_opposition }
 ---
@@ -727,12 +727,12 @@ review:
       % for my_var in docket_number:
         * ${ my_var }
       % endfor
-  - Edit: defendants[0].name.last
+  - Edit: defendant[0].name.last
     button: |
-      # NOTE: a question block with 'defendants.revisit'
+      # NOTE: a question block with 'defendant.revisit'
       # lets the user edit all of the items at once
-      **defendants**
-      % for my_var in defendants:
+      **defendant**
+      % for my_var in defendant:
         * ${ my_var }
       % endfor
   - Edit: trial_court.name.first
