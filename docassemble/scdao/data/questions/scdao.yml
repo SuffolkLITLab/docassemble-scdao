@@ -92,6 +92,7 @@ code: |
   case_integrity_review_form
   signature_date
   # Save (anonymized) interview statistics.
+  user_role = "defendant"
   store_variables_snapshot(data=saved_variables)
   case_integrity_review_form_preview_question  # Pre-canned preview screen
   basic_questions_signature_flow
@@ -123,7 +124,7 @@ data:
       "appointed": ${ defense_appointed }
       "retained": ${ defense_retained }
       "neither_defendant_pro_se": ${ defense_pro_se }
-      "findings_rulings_and_order": ${ findings }
+      "findings": ${ findings }
       "written": ${ findings_written }
       "oral": ${ findings_oral }
       "none": ${ findings_none }
@@ -167,7 +168,7 @@ data:
       "standing_expectation_of_privacy": ${ suppressed_standing_privacy }
       "lack_of_reasonable_suspicion": ${ suppressed_suspicion }
       "lack_of_probable_cause": ${ suppressed_probable_cause }
-      "suppressed_other": ${ other }
+      "suppressed_other": ${ else_suppressed_other }
       "commonwealth_evidence_was_check_all_that_apply": ${ commonwealth_evidence }
       "officer_if_more_than_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
       "witness": ${ commonwealth_witness }
@@ -199,7 +200,7 @@ code: |
   nav.set_section('review_case_integrity_review_form')
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
-  user_ask_role
+  # user_ask_role
   pcf_number
   incident_date
   charges
@@ -241,6 +242,64 @@ subquestion: |
    ${ al_user_bundle.as_pdf() }
   
   Remember to come back to this window to continue and sign your form.
+---
+id: basic questions intro screen
+decoration: form-lineal
+question: |
+  ${interview_short_title}: Court Forms Online
+subquestion: |
+  % if form_approved_for_email_filing:
+  The Court Forms Online Project can help you complete and file court forms in 3 steps:
+  % else:
+  The Court Forms Online Project can help you complete, download and email forms in 3 steps:
+  % endif
+  
+  Step 1. Answer questions that will fill in your form for you.  
+  Step 2. Preview the completed form.  
+  % if form_approved_for_email_filing:  
+  Step 3. Email the form to the court using this secure website and save copies
+  for yourself for later reference.  
+  % elif al_form_type in ['starts_case','existing_case','appeal']:
+  Step 3. Download and print the final form. You will need to deliver it
+  to the court on your own.
+  % else:
+  Step 3. Download the final form. You will need to either print and deliver it or email it to the District Attorney's office
+  on your own.
+  % endif
+  
+  This site is not a lawyer. If you would like a lawyer, find [your local
+  legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
+  
+  Tap the {green words} in any screen for a definition or more information.
+  
+  % if chat_partners_available().help:
+  Live help is currently available in this interview. Click the speech bubble
+  (:comment-alt:) in the navigation bar to connect to a live advocate for help.
+  % endif
+fields:
+  - To continue, you must accept our [terms of use](https://courtformsonline.org/privacy/): acknowledged_information_use
+    datatype: checkboxes
+    none of the above: False    
+    minlength: 1
+    choices:
+      - I accept the terms of use.
+    validation messages:
+      minlength: |
+        You cannot continue unless you agree to the terms of use.        
+continue button field: al_intro_screen
+terms:
+  green words: |
+    Green words are legal terms or a short way of referring to something that needs more explanation. The definition or explanation pops up when you tap the green words.
+right: |
+  % if user_has_saved_answers:
+  ${fa_icon("bell", color="primary", size="sm")}
+  Saved answers available!  
+  
+  ${action_button_html(url_action('load_answer'), icon="folder-open", label=word("View answers"), size="sm" )}
+  % endif    
+---
+code: |
+  form_approved_for_email_filing= False
 ---
 id: Preliminary questions
 question: |
@@ -334,7 +393,7 @@ question: |
 fields:
   - Check all that apply: serious_suppressed
     choices:
-      - Cash (if cash, please write amount seize in Other)
+      - Cash
       - Cell phone
       - Drugs
       - Guns
@@ -342,15 +401,11 @@ fields:
       - Vehicle
       - Paraphernalia
       - Other
-  - Other: serious_suppressed
-    show if:
-      variable: serious_suppressed
-      is: Other
   - 'If applicable, what was item suppressed on most serious charge': serious_suppressed2
+    datatype: area
     required: False
-    maxlength: 44
- - 'If applicable, was anything else suppressed by the court':
-fields:
+  - note: |
+      If applicable, was anything else suppressed by the court:
   - Check all that apply: else_suppressed
     choices:
       - Cash (if cash, please write amount seize in Other)
@@ -361,7 +416,7 @@ fields:
       - Vehicle
       - Paraphernalia
       - Other
-  - Other: else_suppressed
+  - Other: else_suppressed_other
     show if:
       variable: else_suppressed
       is: Other
@@ -532,7 +587,7 @@ attachment:
       - "appointed": ${ defense_appointed }
       - "retained": ${ defense_retained }
       - "neither_defendant_pro_se": ${ defense_pro_se }
-      - "findings_rulings_and_order": ${ findings }
+      - "findings": ${ findings }
       - "written": ${ findings_written }
       - "oral": ${ findings_oral }
       - "none": ${ findings_none }
@@ -576,7 +631,7 @@ attachment:
       - "standing_expectation_of_privacy": ${ suppressed_standing_privacy }
       - "lack_of_reasonable_suspicion": ${ suppressed_suspicion }
       - "lack_of_probable_cause": ${ suppressed_probable_cause }
-      - "suppressed_other": ${ other }
+      - "suppressed_other": ${ else_suppressed_other }
       - "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
       - "officer_if_more_than_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
       - "witness": ${ commonwealth_witness }
@@ -671,11 +726,7 @@ review:
     button: |
       **If applicable, what was item suppressed on most serious charge?**:
       ${ serious_suppressed2 }
-  - Edit: serious_suppressed
-    button: |
-      **If applicable, what was the item suppressed on most serious charge?**:
-      ${ serious_suppressed }
- - Edit: else_suppressed
+  - Edit: else_suppressed
     button: |
       **If applicable, was anything else suppressed by the court?**:
       ${ else_suppressed }
@@ -683,14 +734,14 @@ review:
     button: |
       **Reason for decision?**:
       ${ decision_reason }
-  - Edit: rule_thirteen_compliance
-    button: |
-      **Rule 13 Compliance?**:
-      ${ word(yesno(rule_thirteen_compliance)) }
   - Edit: motion_result
     button: |
       **Motion to Suppress / Dismiss was:**:
       ${ motion_result }
+  - Edit: rule_thirteen_compliance
+    button: |
+      **Rule 13 Compliance?**:
+      ${ word(yesno(rule_thirteen_compliance)) }
   - Edit: suppressed_order
     button: |
       **If a suppression order, was suppression because of problem with (check all that apply)**:
@@ -698,15 +749,15 @@ review:
   - Edit: commonwealth_evidence
     button: |
       **Commonwealth's evidence was (check all that apply)**:
-      ${ word(commonwealth_evidence }
+      ${ word(commonwealth_evidence) }
   - Edit: evidence_hearing_summary
     button: |
       **Summary of evidence at hearing:**:
       ${ evidence_hearing_summary }
-  - Edit: commonwealth_hearing_argument
+  - Edit: commonwealth_legal_argument
     button: |
       **Commonwealth's legal argument at the hearing:**:
-      ${ commonwealth_hearing_argument }
+      ${ commonwealth_legal_argument }
   - Edit: decision_basis
     button: |
       **Basis for judge's decision (if no written findings and rulings)**:
@@ -750,7 +801,7 @@ review:
       **witnesses**
       % for my_var in witnesses:
         * ${ my_var }
-      % endfors
+      % endfor
   - Edit: judges
     button: |
       **judges**:
