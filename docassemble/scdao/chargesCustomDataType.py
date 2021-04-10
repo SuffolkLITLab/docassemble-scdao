@@ -36,8 +36,20 @@ class Charges(CustomDataType):
 
     @classmethod
     def transform(cls, item):
-        #ds=datasource[int(item)]
-        #return ds.firstName+' '+ds.lastName
-        return item
-
-
+        dataSource = [
+            {'firstName':'Tim', 'lastName':'Cook'},
+            {'firstName':'Eric', 'lastName':'Baker'},
+            {'firstName':'Victor', 'lastName':'Brown'},
+            {'firstName':'Lisa', 'lastName':'White'},
+            {'firstName':'Oliver', 'lastName':'Bull'},
+            {'firstName':'Zade', 'lastName':'Stock'},
+            {'firstName':'David', 'lastName':'Reed'},
+            {'firstName':'George', 'lastName':'Hand'},
+            {'firstName':'Tony', 'lastName':'Well'},
+            {'firstName':'Bruce', 'lastName':'Wayne'},
+        ]
+        returnValue = []
+        for selection in item.split(","):
+            ds=dataSource[int(selection)+1]
+            returnValue.append(ds['firstName']+' '+ds['lastName'])
+        return returnValue
