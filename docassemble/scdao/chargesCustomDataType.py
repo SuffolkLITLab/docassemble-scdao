@@ -28,6 +28,7 @@ class Charges(CustomDataType):
 
     is_object = True
     jq_rule = 'Charges'
+
     jq_message = 'You need to enter the charges.'
 
     @classmethod
