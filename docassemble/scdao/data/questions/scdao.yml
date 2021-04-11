@@ -2,6 +2,14 @@ include:
   - docassemble.AssemblyLine:al_package.yml
   - docassemble.MassAccess:massaccess.yml
 ---
+features:
+  javascript:
+    - jquery.magicsearch.js
+    - charges.js
+    - judges.js
+  css: jquery.magicsearch.css
+  python: chargesCustomDataType.py
+---
 comment: |
   The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
 metadata:
@@ -203,7 +211,7 @@ code: |
   # user_ask_role
   pcf_number
   incident_date
-  charges
+  defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
   evidence_hearing_summary
@@ -360,8 +368,14 @@ id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
-  - 'Charges': charges
-    datatype: area
+  - Charges: defendant_charges
+    datatype: charges
+  - 'If applicable, what was item suppressed on most serious charge?': item1_suppressed
+    required: False
+    maxlength: 49
+  - 'If applicable, what was item suppressed on most serious charge?': item2_suppressed
+    required: False
+    maxlength: 49
   - 'Police Department Involved': police_department
     choices:
     - BPD - District A-1: police_bpd_a1
