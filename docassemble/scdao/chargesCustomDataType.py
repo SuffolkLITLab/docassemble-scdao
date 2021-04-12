@@ -37,16 +37,16 @@ class Charges(CustomDataType):
     @classmethod
     def transform(cls, item):
         dataSource = [
-            {'firstName':'Tim', 'lastName':'Cook'},
-            {'firstName':'Eric', 'lastName':'Baker'},
-            {'firstName':'Victor', 'lastName':'Brown'},
-            {'firstName':'Lisa', 'lastName':'White'},
-            {'firstName':'Oliver', 'lastName':'Bull'},
-            {'firstName':'Zade', 'lastName':'Stock'},
-            {'firstName':'David', 'lastName':'Reed'},
-            {'firstName':'George', 'lastName':'Hand'},
-            {'firstName':'Tony', 'lastName':'Well'},
-            {'firstName':'Bruce', 'lastName':'Wayne'},
+            {'firstName':'MURDER, FIRST DEGREE  c. 265 s. 1', 'lastName':'c. 265 s. 2(a)'},
+            {'firstName':'TREASON', 'lastName':'c. 264 s. 2'},
+            {'firstName':'MURDER, FIRST DEGREE BY A MINOR c. 265 s. 1', 'lastName':'c. 265 s. 2(b) and c. 279 s. 24'},
+            {'firstName':'A&B, AGGRAVATED, SERIOUS BODILY INJURY c. 265 s. 13A(b)(i)', 'lastName':'c. 265 s. 13A(b)(i)'},
+            {'firstName':'A&B TO COLLECT LOAN c. 265 s. 13C', 'lastName':'c. 265 s. 13C'},
+            {'firstName':'MURDER, ATTEMPTED c. 265 s. 16', 'lastName':'c. 265 s. 16'},
+            {'firstName':'ROBBERY, ARMED, FIREARM c. 265 s. 17', 'lastName':'c. 265 s. 17'},
+            {'firstName':'ROBBERY, ARMED, FIREARM & MASKED c. 265 s. 17', 'lastName':'c. 265 s. 17'},
+            {'firstName':'STALKING, SUBSQ. OFF. c. 265 s. 43(c)', 'lastName':'c. 265 s. 43(c)'},
+            {'firstName':'FIRE, LARCENY AT c. 266 s. 23', 'lastName':'c. 266 s. 24'},
         ]
         returnValue = []
         for selection in item.split(","):

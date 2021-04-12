@@ -133,7 +133,7 @@ code: |
   defendant
   docket_number
   set_progress(18.18)
-  judges
+  defendant_judges
   defense_counsel.name.first
   set_progress(36.36)
   ada.name.first
@@ -219,7 +219,7 @@ fields:
       is: Other
   - 'Type of Motion / Action / Review Request': request_type2
     required: False
-  - Judges: judges
+  - Judges: defendant_judges
     datatype: judges
 #  - 'Who was the judge?': judge1_name_full
 #  - 'Who was the judge?': judge2_name_full
