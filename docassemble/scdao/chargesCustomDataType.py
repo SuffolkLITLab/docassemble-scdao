@@ -36,7 +36,7 @@ class Charges(CustomDataType):
 
     @classmethod
     def transform(cls, item):
-        dataSource = [
+        dataSource1 = [
             {'firstName':'MURDER, FIRST DEGREE  c. 265 s. 1', 'lastName':'c. 265 s. 2(a)'},
             {'firstName':'TREASON', 'lastName':'c. 264 s. 2'},
             {'firstName':'MURDER, FIRST DEGREE BY A MINOR c. 265 s. 1', 'lastName':'c. 265 s. 2(b) and c. 279 s. 24'},
