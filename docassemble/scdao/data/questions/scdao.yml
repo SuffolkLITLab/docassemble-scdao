@@ -8,7 +8,9 @@ features:
     - charges.js
     - judges.js
   css: jquery.magicsearch.css
-  python: chargesCustomDataType.py
+  python: 
+    - chargesCustomDataType.py
+    - judgesCustomDataType.py
 ---
 comment: |
   The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
@@ -217,9 +219,11 @@ fields:
       is: Other
   - 'Type of Motion / Action / Review Request': request_type2
     required: False
-  - 'Who was the judge?': judge1_name_full
-  - 'Who was the judge?': judge2_name_full
-    required: False
+  - Judges: judges
+    datatype: judges
+#  - 'Who was the judge?': judge1_name_full
+#  - 'Who was the judge?': judge2_name_full
+#    required: False
 ---
 id: Specifications
 question: |
