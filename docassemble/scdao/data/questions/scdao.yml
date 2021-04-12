@@ -95,12 +95,12 @@ code: |
   # delete the `mandatory: True` specifier or this whole block.
   al_intro_screen  # Organization intro screen/splash screen
   # Introduction to this specific interview
-  case_integrity_review_form_intro
+  # case_integrity_review_form_intro
   # Trigger the whole interview order block to control question order
   case_integrity_review_form
-  signature_date
+  # signature_date
   # Save (anonymized) interview statistics.
-  user_role = "defendant"
+  user_role
   store_variables_snapshot(data=saved_variables)
   case_integrity_review_form_preview_question  # Pre-canned preview screen
   basic_questions_signature_flow
@@ -129,9 +129,9 @@ data:
       "decision_date": ${ decision_date }
       "next_court_date": ${ next_court_date }
       "was_defense_counsel": ${ was_defense_counsel }
-      "appointed": ${ defense_appointed }
-      "retained": ${ defense_retained }
-      "neither_defendant_pro_se": ${ defense_pro_se }
+      "defense_appointed": ${ defense_appointed }
+      "defense_retained": ${ defense_retained }
+      "defense_pro_se": ${ defense_pro_se }
       "findings": ${ findings }
       "written": ${ findings_written }
       "oral": ${ findings_oral }
@@ -208,37 +208,33 @@ code: |
   nav.set_section('review_case_integrity_review_form')
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
-  # user_ask_role
+  user_ask_role =  "defendant"
   pcf_number
   incident_date
   defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
   evidence_hearing_summary
+  users.there_is_another = False
+  addresses_to_search = False
+  all_matches = False
+  all_courts = False
+  trial_court = False
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
+  defendant
   docket_number
-  defendant.gather()
   set_progress(18.18)
-  trial_court
-  set_progress(27.27)
   judges
   defense_counsel.name.first
   set_progress(36.36)
   ada.name.first
   defense_counsel.name.last
   ada.name.last
+  trial_court
+  set_progress(27.27)
   case_integrity_review_form = True
----
-comment: |
-  This question is used to introduce your interview. Please customize
-id: Case Integrity Review Form
-continue button field: case_integrity_review_form_intro
-question: |
-  Case Integrity Review Form
-subquestion: |
-  This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.
 ---
 id: Review your form before you sign it
 continue button field: case_integrity_review_form_preview_question
@@ -254,26 +250,9 @@ subquestion: |
 id: basic questions intro screen
 decoration: form-lineal
 question: |
-  ${interview_short_title}: Court Forms Online
+  ${interview_short_title}
 subquestion: |
-  % if form_approved_for_email_filing:
-  The Court Forms Online Project can help you complete and file court forms in 3 steps:
-  % else:
-  The Court Forms Online Project can help you complete, download and email forms in 3 steps:
-  % endif
-  
-  Step 1. Answer questions that will fill in your form for you.  
-  Step 2. Preview the completed form.  
-  % if form_approved_for_email_filing:  
-  Step 3. Email the form to the court using this secure website and save copies
-  for yourself for later reference.  
-  % elif al_form_type in ['starts_case','existing_case','appeal']:
-  Step 3. Download and print the final form. You will need to deliver it
-  to the court on your own.
-  % else:
-  Step 3. Download the final form. You will need to either print and deliver it or email it to the District Attorney's office
-  on your own.
-  % endif
+  This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.
   
   This site is not a lawyer. If you would like a lawyer, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
@@ -317,7 +296,6 @@ subquestion: |
 fields:
   - 'PCF number (if known)': pcf_number
     required: False
-    maxlength: 40
   - 'LEAD database review?': lead_database_review
     datatype: yesno 
   - Type of Motion / Action / Review Request: request_type1
@@ -334,7 +312,9 @@ fields:
       is: Other
   - 'Type of Motion / Action / Review Request': request_type2
     required: False
-    maxlength: 44
+  - 'Who was the judge?': judge1_name_full
+  - 'Who was the judge?': judge2_name_full
+    required: False
 ---
 id: Specifications
 question: |
@@ -354,8 +334,8 @@ fields:
     datatype: date
   - 'Was Defense counsel -': was_defense_counsel
     choices:
-      - Appointed?: defense_appointed
-      - Retained?: defense_retained
+      - Appointed: defense_appointed
+      - Retained: defense_retained
       - Neither - defendant pro se: defense_pro_se
   - 'Findings, Rulings and Order': findings
     choices:
@@ -399,8 +379,8 @@ fields:
     - Hospital Dept: police_hospital
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
-    maxlength: 39
 ---
+mandatory: True
 id: Specifications cont d
 question: |
   If applicable, what was the item suppressed on most serious charge:
@@ -435,6 +415,7 @@ fields:
       variable: else_suppressed
       is: Other
 ---
+mandatory: True
 id: Specifications cont d
 question: |
   Reasons for decision
@@ -454,6 +435,7 @@ fields:
       variable: decision_reason
       is: Other
 ---
+mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
@@ -499,8 +481,7 @@ question: |
 subquestion: |
   Commonwealth's evidence was (check all that apply):
 fields:
-  - Some radio buttons: commonwealth_evidence
-    datatype: radio
+  - Commonwealth's evidence was (check all that apply: commonwealth_evidence
     choices:
       - Officer (if more than one officer testified, please check "Other" and say how many): commonwealth_officer
       - Witness: commonwealth_witness
@@ -522,13 +503,9 @@ subquestion: |
   Please elaborate on the following:
 fields:
   - 'Summary of evidence at hearing:': evidence_hearing_summary
-    maxlength: 720
   - "Commonwealth's legal argument at the hearing:": commonwealth_legal_argument
-    maxlength: 810
   - "Basis for judge's decision (if no written findings and rulings)": decision_basis
-    maxlength: 720
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
-    maxlength: 720
 ---
 mandatory: True
 id: Specifications cont d
@@ -537,8 +514,7 @@ question: |
 subquestion: |
  Documents included:
 fields:
-  - Some radio buttons: documents_included
-    datatype: radio
+  - Documents included: documents_included
     choices:
       - Application for complaint: documents_application
       - Complaint: documents_complaint
@@ -598,9 +574,9 @@ attachment:
       - "decision_date": ${ decision_date }
       - "next_court_date": ${ next_court_date }
       - "was_defense_counsel": ${ was_defense_counsel }
-      - "appointed": ${ defense_appointed }
-      - "retained": ${ defense_retained }
-      - "neither_defendant_pro_se": ${ defense_pro_se }
+      - "defense_appointed": ${ defense_appointed }
+      - "defense_retained": ${ defense_retained }
+      - "defense_pro_se": ${ defense_pro_se }
       - "findings": ${ findings }
       - "written": ${ findings_written }
       - "oral": ${ findings_oral }
