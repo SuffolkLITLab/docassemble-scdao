@@ -101,104 +101,9 @@ code: |
   # signature_date
   # Save (anonymized) interview statistics.
   user_role
-  store_variables_snapshot(data=saved_variables)
   case_integrity_review_form_preview_question  # Pre-canned preview screen
   basic_questions_signature_flow
   case_integrity_review_form_download
----
-variable name: saved_variables
-data: 
-      "docket_number": ${ docket_number }
-      "defendant_name_last": ${ defendant.name.last }
-      "defendant_name_first": ${ defendant.name.first }
-      "trial_court_name": ${ trial_court }
-      "judge1_name_full": ${ judge1_name_full }
-      "defense_counsel_name_first": ${ defense_counsel.name.first }
-      "judge2_name_full": ${ judge2_name_full }
-      "ada_name_first": ${ ada.name.first }
-      "defense_counsel_name_last": ${ defense_counsel.name.last }
-      "ada_name_last": ${ ada.name.last }
-      "pcf_number": ${ pcf_number }
-      "lead_database_review": ${ lead_database_review }
-      "lead_database_review_no": ${ not lead_database_review }
-      "request_type1": ${ request_type1 }
-      "request_type2": ${ request_type2 }
-      "incident_date": ${ incident_date }
-      "charged_date": ${ charged_date }
-      "hearing_date": ${ hearing_date }
-      "decision_date": ${ decision_date }
-      "next_court_date": ${ next_court_date }
-      "was_defense_counsel": ${ was_defense_counsel }
-      "defense_appointed": ${ defense_appointed }
-      "defense_retained": ${ defense_retained }
-      "defense_pro_se": ${ defense_pro_se }
-      "findings": ${ findings }
-      "written": ${ findings_written }
-      "oral": ${ findings_oral }
-      "none": ${ findings_none }
-      "requested": ${ findings_requested }
-      "charges": ${ charges }
-      "police_department_involved": ${ police_department }
-      "bpd_district_a1": ${ police_bpd_a1 }
-      "bpd_district_a15": ${ police_bdp_a15 }
-      "bpd_district_a7": ${ police_bdp_a7 }
-      "bpd_district_b2": ${ police_bdp_b2 }
-      "bpd_district_b3": ${ police_bdp_b3 }
-      "bpd_district_c6": ${ police_bdp_c6 }
-      "bpd_district_c11": ${ police_bdp_c11 }
-      "bpd_district_d4": ${ police_bdp_d4 }
-      "bpd_district_d14": ${ police_bdp_d14 }
-      "bpd_district_e6": ${ police_bdp_e6 }
-      "bpd_district_e13": ${ police_bdp_e13 }
-      "bpd_district_e18": ${ police_bdp_e18 }
-      "chelsea_police_dept": ${ police_chelsea }
-      "revere_police_dept": ${ police_revere }
-      "mass_state_police": ${ police_mass }
-      "winthrop_police_dept": ${ police_winthrop }
-      "mbta": ${ police_mbta }
-      "university_college_dept": ${ police_university }
-      "hospital_dept": ${ police_hospital }
-      "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
-      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge": ${ serious_suppressed }
-      "if_applicable_what_was_the_item_suppressed_on_most_serious_charge2": ${ serious_suppressed2 }
-      "if_applicable_was_anything_else_suppressed_by_the_court": ${ else_suppressed }
-      "reason_for_decision": ${ decision_reason }
-      "motion_to_suppress_dismiss_was": ${ motion_result }
-      "rule_thirteen_compliance": ${ rule_thirteen_compliance }
-      "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
-      "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-      "stop": ${ suppressed_stop }
-      "seizure": ${ suppressed_seizure }
-      "warrantless_search": ${ suppressed_warrantless }
-      "warrant_search": ${ suppressed_warrant }
-      "voluntariness": ${ suppressed_voluntary }
-      "miranda": ${ suppressed_miranda }
-      "standing_expectation_of_privacy": ${ suppressed_standing_privacy }
-      "lack_of_reasonable_suspicion": ${ suppressed_suspicion }
-      "lack_of_probable_cause": ${ suppressed_probable_cause }
-      "suppressed_other": ${ else_suppressed_other }
-      "commonwealth_evidence_was_check_all_that_apply": ${ commonwealth_evidence }
-      "officer_if_more_than_one_officer_testified_please_check_other_and_say_how_many": ${ commonwealth_officer }
-      "witness": ${ commonwealth_witness }
-      "video": ${ commonwealth_video }
-      "audio": ${ commonwealth_audio }
-      "photos": ${ commonwealth_photos }
-      "documents": ${ commonwealth_documents }
-      "physical_evidence": ${ commonwealth_physical_evidence }
-      "commonwealth_other": ${ commonwealth_other }
-      "evidence_hearing_summary": ${ evidence_hearing_summary }
-      "commonwealth_legal_argument": ${ commonwealth_legal_argument }
-      "decision_basis": ${ decision_basis }
-      "recommendation": ${ recommendation }
-      "documents_included" : ${ documents_included }
-      "application_for_complaint": ${ documents_application }
-      "complaint": ${ documents_complaint }
-      "police_report": ${ documents_report }
-      "docket_sheet": ${ documents_docket }
-      "defendant_signed_motion_and_affidavit": ${ documents_signed }
-      "defendant_bop": ${ documents_bop }
-      "motion_judge_written_findings_and_rulings_if_any": ${ documents_motion_judge }
-      "commonwealth_opposition_if_any": ${ documents_opposition }
 ---
 id: interview_order_case_integrity_review_form
 code: |
@@ -420,7 +325,7 @@ id: Specifications cont d
 question: |
   Reasons for decision
 fields:
-  - Check all that apply: decision_reason
+  - 'Check all that apply': decision_reason
     choices:
       - Officer no-show
       - Officer credibility
@@ -454,11 +359,8 @@ mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
-subquestion: |
-  If a suppression order, was suppression because of problem with (check all that apply):
 fields:
-  - Some radio buttons: suppressed_order
-    datatype: radio
+  - If a suppression order, was suppression because of problem with (check all that apply): suppressed_order
     choices:
       - Stop: suppressed_stop
       - Seizure: suppressed_seizure
@@ -478,10 +380,8 @@ fields:
 mandatory: True
 question: |
   Specifications cont'd
-subquestion: |
-  Commonwealth's evidence was (check all that apply):
 fields:
-  - Commonwealth's evidence was (check all that apply: commonwealth_evidence
+  - "Commonwealth's evidence was (check all that apply)": commonwealth_evidence
     choices:
       - Officer (if more than one officer testified, please check "Other" and say how many): commonwealth_officer
       - Witness: commonwealth_witness
@@ -511,10 +411,8 @@ mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
-subquestion: |
- Documents included:
 fields:
-  - Documents included: documents_included
+  - 'Documents included': documents_included
     choices:
       - Application for complaint: documents_application
       - Complaint: documents_complaint
