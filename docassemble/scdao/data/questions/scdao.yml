@@ -241,7 +241,7 @@ id: Preliminary questions
 question: |
   Preliminary questions
 subquestion: |
-  Please fill out the following preliminary questions so we can start the case integrity review form started.
+  Please fill out the following preliminary questions so we can get the case integrity review form started.
 fields:
   - 'PCF number (if known)': pcf_number
     required: False
