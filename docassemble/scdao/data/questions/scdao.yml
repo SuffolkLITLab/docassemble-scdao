@@ -201,7 +201,7 @@ code: |
 id: Review your form before you download it.
 continue button field: case_integrity_review_form_preview_question
 question: |
-  Review your form before you sign it
+  Review your form before you download it.
 subquestion: |
   Here is a preview of the form you'll download on the next page. 
   
@@ -222,17 +222,7 @@ subquestion: |
   % if chat_partners_available().help:
   Live help is currently available in this interview. Click the speech bubble
   (:comment-alt:) in the navigation bar to connect to a live advocate for help.
-  % endif
-fields:
-  - To continue, you must accept our [terms of use](https://courtformsonline.org/privacy/): acknowledged_information_use
-    datatype: checkboxes
-    none of the above: False    
-    minlength: 1
-    choices:
-      - I accept the terms of use.
-    validation messages:
-      minlength: |
-        You cannot continue unless you agree to the terms of use.        
+  % endif       
 continue button field: al_intro_screen
 terms:
   green words: |
