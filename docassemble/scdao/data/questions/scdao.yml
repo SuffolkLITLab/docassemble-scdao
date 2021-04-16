@@ -136,11 +136,12 @@ data:
        "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
        "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
        "reason_for_decision": ${ decision_reason }
+       "reason_for_decision_other": ${ decision_reason_other1 }
        "motion_to_suppress_dismiss_was": ${ motion_result }
        "rule_thirteen_compliance": ${ rule_thirteen_compliance }
        "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
        "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-       "suppressed_other": ${ else_suppressed_other }
+       "suppressed_other": ${ else_suppressed_other1 }
        "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
        "commonwealth_other": ${ commonwealth_other }
        "evidence_hearing_summary": ${ evidence_hearing_summary }
@@ -259,12 +260,12 @@ fields:
     datatype: yesno 
   - Type of Motion / Action / Review Request: request_type1
     choices:
-      - No Bill: request_none
-      - Suppression (in part or whole): request_suppression
-      - Mistrial (on one or more charges): request_mistrial
-      - Directed Verdict: request_directed
-      - Systemic Incident / Violation: request_violation
-      - Other: request_other
+      - No Bill
+      - Suppression (in part or whole)
+      - Mistrial (on one or more charges)
+      - Directed Verdict
+      - Systemic Incident / Violation
+      - Other
   - Other: request_other
     show if:
       variable: request_type1
@@ -352,10 +353,9 @@ fields:
 mandatory: True
 id: Specifications cont d
 question: |
-  If applicable, what was the item suppressed on most serious charge:
+  Items suppressed:
 fields:
-  - Check all that apply: serious_suppressed
-    datatype: checkboxes
+  - If applicable, what was the item suppressed on most serious charge: serious_suppressed
     choices:
       - Cash: serious_suppressed_cash
       - Cell phone: serious_suppressed_phone
@@ -365,7 +365,6 @@ fields:
       - Vehicle: serious_suppressed_vehicle
       - Paraphernalia: serious_suppressed_paraphernalia
       - Other: serious_suppressed_other
-    none of the above: False
   - Other: serious_suppressed_other
     datatype: text
     required: False
@@ -383,7 +382,7 @@ fields:
       - Paraphernalia: else_suppressed_paraphernalia
       - Other: else_suppressed_other
     none of the above: False
-  - Other: else_suppressed_other
+  - Other: else_suppressed_other1
     datatype: text
     required: False
 ---
@@ -404,7 +403,7 @@ fields:
       - Misapplication of law to facts: decision_misapplication
       - Other: decision_reason_other
     none of the above: False
-  - Other: decision_reason
+  - Other: decision_reason_other1
     datatype: text
     required: False
 ---
@@ -440,9 +439,9 @@ fields:
       - Standing / Expectation of Privacy: suppressed_standing_privacy
       - Lack of reasonable suspicion: suppressed_suspicion
       - Lack of probable cause: suppressed_probable_cause
-      - Other: other
+      - Other: suppressed_other
     none of the above: False
-  - Other: suppressed_other
+  - Other: suppressed_other1
     datatype: text
     required: False
 ---
@@ -521,7 +520,7 @@ attachment:
     name: Case Integrity Review Form
     filename: Case-Integrity-Review-Form
     skip undefined: True
-    pdf template file: 1case_integrity_review_form.pdf
+    pdf template file: case_integrity_review_form.pdf
     fields: 
       - "docket_number": ${ docket_number }
       - "defendant_name_last": ${ defendant.name.last }
@@ -550,12 +549,14 @@ attachment:
       - "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
       - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
+      - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed1 }
       - "reason_for_decision": ${ decision_reason }
+      - "reason_for_decision_other": ${ decision_reason_other1 }
       - "motion_to_suppress_dismiss_was": ${ motion_result }
       - "rule_thirteen_compliance": ${ rule_thirteen_compliance }
       - "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
       - "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-      - "suppressed_other": ${ else_suppressed_other }
+      - "suppressed_other": ${ else_suppressed_other1 }
       - "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
       - "commonwealth_other": ${ commonwealth_other }
       - "evidence_hearing_summary": ${ evidence_hearing_summary }
