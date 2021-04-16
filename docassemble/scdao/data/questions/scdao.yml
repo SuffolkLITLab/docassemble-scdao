@@ -214,8 +214,7 @@ question: |
 subquestion: |
   [description and instructions go here]
   
-  This site is not a lawyer. If you would like a lawyer, find [your local
-  legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
+
   
   Tap the {green words} in any screen for a definition or more information.
   
@@ -493,7 +492,7 @@ subquestion: |
   ${ al_user_bundle.send_button_html() }
 ---
 objects:
-  - case_integrity_review_form_attachment: ALDocument.using(title="This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.", filename="case_integrity_review_form", enabled=True, has_addendum=False)
+  - case_integrity_review_form_attachment: ALDocument.using(title="[description and instructions go here]", filename="case_integrity_review_form", enabled=True, has_addendum=False)
 ---
 objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[case_integrity_review_form_attachment], filename="case_integrity_review_form.pdf", title="All forms to download for your records")
