@@ -350,21 +350,20 @@ fields:
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
 ---
-mandatory: True
 id: Specifications cont d
 question: |
   Items suppressed:
 fields:
   - If applicable, what was the item suppressed on most serious charge: serious_suppressed
     choices:
-      - Cash: serious_suppressed_cash
-      - Cell phone: serious_suppressed_phone
-      - Drugs: serious_suppressed_drugs
-      - Guns: serious_suppressed_guns
-      - Statements: serious_suppressed_statements
-      - Vehicle: serious_suppressed_vehicle
-      - Paraphernalia: serious_suppressed_paraphernalia
-      - Other: serious_suppressed_other
+      - Cash
+      - Cell phone
+      - Drugs
+      - Guns
+      - Statements
+      - Vehicle
+      - Paraphernalia
+      - Other
   - Other: serious_suppressed_other
     datatype: text
     required: False
@@ -386,7 +385,6 @@ fields:
     datatype: text
     required: False
 ---
-mandatory: True
 id: Specifications cont d
 question: |
   Reasons for decision
@@ -407,7 +405,6 @@ fields:
     datatype: text
     required: False
 ---
-mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
@@ -422,7 +419,6 @@ fields:
   - 'Rule 13 Compliance?': rule_thirteen_compliance
     datatype: yesno
 ---
-mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
@@ -445,7 +441,6 @@ fields:
     datatype: text
     required: False
 ---
-mandatory: True
 question: |
   Specifications cont'd
 fields:
@@ -476,7 +471,6 @@ fields:
   - "Basis for judge's decision (if no written findings and rulings)": decision_basis
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
 ---
-mandatory: True
 id: Specifications cont d
 question: |
   Specifications cont'd
