@@ -163,6 +163,11 @@ code: |
   defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
+  incident_date.format_date('MM/dd/yyyy')
+  hearing_date.format_date('MM/dd/yyyy')
+  charged_date.format_date('MM/dd/yyyy')
+  decision_date.format_date('MM/dd/yyyy')
+  next_court_date.format_date('MM/dd/yyyy')
   evidence_hearing_summary
   police_department
   serious_suppressed
@@ -171,11 +176,6 @@ code: |
   suppressed_order
   commonwealth_evidence
   documents_included
-  incident_date.format_date('long')
-  hearing_date.format_date('long')
-  charged_date.format_date('long')
-  decision_date.format_date('long')
-  next_court_date.format_date('long')
   users.there_is_another = False
   addresses_to_search = False
   all_matches = False
