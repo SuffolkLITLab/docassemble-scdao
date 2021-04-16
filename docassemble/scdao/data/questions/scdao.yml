@@ -102,7 +102,7 @@ code: |
   # Save (anonymized) interview statistics.
   user_role
   case_integrity_review_form_preview_question  # Pre-canned preview screen
-  basic_questions_signature_flow
+  # basic_questions_signature_flow
   case_integrity_review_form_download
 ---
 id: interview_order_case_integrity_review_form
@@ -115,21 +115,30 @@ code: |
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
   user_ask_role =  "defendant"
   pcf_number
+  docket_number
   incident_date
   defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
   evidence_hearing_summary
+  police_department
+  serious_suppressed
+  else_suppressed
+  decision_reason
+  suppressed_order
+  commonwealth_evidence
+  documents_included
   users.there_is_another = False
   addresses_to_search = False
   all_matches = False
   all_courts = False
   trial_court = False
+  signature_choice = False
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
+  format_date(format='MM/dd/yyyy')
   defendant
-  docket_number
   set_progress(18.18)
   judges
   defense_counsel.name.first
@@ -141,16 +150,14 @@ code: |
   set_progress(27.27)
   case_integrity_review_form = True
 ---
-id: Review your form before you sign it
+id: Review your form before you download it.
 continue button field: case_integrity_review_form_preview_question
 question: |
   Review your form before you sign it
 subquestion: |
-  Here is a preview of the form you'll sign on the next page. 
+  Here is a preview of the form you'll download on the next page. 
   
    ${ al_user_bundle.as_pdf() }
-  
-  Remember to come back to this window to continue and sign your form.
 ---
 id: basic questions intro screen
 decoration: form-lineal
@@ -263,25 +270,25 @@ fields:
     maxlength: 49
   - 'Police Department Involved': police_department
     choices:
-    - BPD - District A-1: police_bpd_a1
-    - BPD - District A-15: police_bdp_a15
-    - BPD - District A-7: police_bdp_a7
-    - BPD - District B-2: police_bdp_b2
-    - BPD - District B-3: police_bdp_b3
-    - BPD - District C-6: police_bdp_c6
-    - BPD - District C-11: police_bdp_c11
-    - BPD - District D-4: police_bdp_d4
-    - BPD - District D-14: police_bdp_d14
-    - BPD - District E-6: police_bdp_e6
-    - BPD - District E-13: police_bdp_e13
-    - BPD - District E-18: police_bdp_e18
-    - Chelsea Police Dept: police_chelsea
-    - Revere Police Dept: police_revere
-    - Mass State Police: police_mass
-    - Winthrop Police Dept: police_winthrop
-    - MBTA: police_mbta
-    - University / College Dept: police_university
-    - Hospital Dept: police_hospital
+    - BPD - District A-1
+    - BPD - District A-15
+    - BPD - District A-7
+    - BPD - District B-2
+    - BPD - District B-3
+    - BPD - District C-6
+    - BPD - District C-11
+    - BPD - District D-4
+    - BPD - District D-14
+    - BPD - District E-6
+    - BPD - District E-13
+    - BPD - District E-18
+    - Chelsea Police Dept
+    - Revere Police Dept
+    - Mass State Police
+    - Winthrop Police Dept
+    - MBTA
+    - University / College Dept
+    - Hospital Dept
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
 ---
@@ -291,34 +298,37 @@ question: |
   If applicable, what was the item suppressed on most serious charge:
 fields:
   - Check all that apply: serious_suppressed
+    datatype: checkboxes
     choices:
-      - Cash
-      - Cell phone
-      - Drugs
-      - Guns
-      - Statements
-      - Vehicle
-      - Paraphernalia
-      - Other
-  - 'If applicable, what was item suppressed on most serious charge': serious_suppressed2
-    datatype: area
+      - Cash: serious_suppressed_cash
+      - Cell phone: serious_suppressed_phone
+      - Drugs: serious_suppressed_drugs
+      - Guns: serious_suppressed_guns
+      - Statements: serious_suppressed_statements
+      - Vehicle: serious_suppressed_vehicle
+      - Paraphernalia: serious_suppressed_paraphernalia
+      - Other: serious_suppressed_other
+    none of the above: False
+  - Other: serious_suppressed_other
+    datatype: text
     required: False
   - note: |
       If applicable, was anything else suppressed by the court:
   - Check all that apply: else_suppressed
+    datatype: checkboxes
     choices:
-      - Cash (if cash, please write amount seize in Other)
-      - Cell phone
-      - Drugs
-      - Guns
-      - Statements
-      - Vehicle
-      - Paraphernalia
-      - Other
+      - Cash (if cash, please write amount seize in Other): else_suppressed_cash
+      - Cell phone: else_suppressed_phone
+      - Drugs: else_suppressed_drugs
+      - Guns: else_suppressed_guns
+      - Statements: else_suppressed_statements
+      - Vehicle: else_suppressed_vehicle
+      - Paraphernalia: else_suppressed_paraphernalia
+      - Other: else_suppressed_other
+    none of the above: False
   - Other: else_suppressed_other
-    show if:
-      variable: else_suppressed
-      is: Other
+    datatype: text
+    required: False
 ---
 mandatory: True
 id: Specifications cont d
@@ -326,19 +336,20 @@ question: |
   Reasons for decision
 fields:
   - 'Check all that apply': decision_reason
+    datatype: checkboxes
     choices:
-      - Officer no-show
-      - Officer credibility
-      - Witness no-show
-      - Witness credibility
-      - CI reliability / basis of knowledge
-      - Legal error by trial court
-      - Misapplication of law to facts
-      - Other
+      - Officer no-show: decision_officer_noshow
+      - Officer credibility: decision_officer_credibility
+      - Witness no-show: decision_witness_noshow
+      - Witness credibility: decision_witness_credibility
+      - CI reliability / basis of knowledge: decision_ci
+      - Legal error by trial court: decision_error
+      - Misapplication of law to facts: decision_misapplication
+      - Other: decision_reason_other
+    none of the above: False
   - Other: decision_reason
-    show if:
-      variable: decision_reason
-      is: Other
+    datatype: text
+    required: False
 ---
 mandatory: True
 id: Specifications cont d
@@ -361,6 +372,7 @@ question: |
   Specifications cont'd
 fields:
   - If a suppression order, was suppression because of problem with (check all that apply): suppressed_order
+    datatype: checkboxes
     choices:
       - Stop: suppressed_stop
       - Seizure: suppressed_seizure
@@ -372,18 +384,19 @@ fields:
       - Lack of reasonable suspicion: suppressed_suspicion
       - Lack of probable cause: suppressed_probable_cause
       - Other: other
-  - Other choice: suppressed_other
-    show if: 
-      variable: suppressed_order
-      is: other
+    none of the above: False
+  - Other: suppressed_other
+    datatype: text
+    required: False
 ---
 mandatory: True
 question: |
   Specifications cont'd
 fields:
   - "Commonwealth's evidence was (check all that apply)": commonwealth_evidence
+    datatype: checkboxes
     choices:
-      - Officer (if more than one officer testified, please check "Other" and say how many): commonwealth_officer
+      - Officer (if more than one officer testified, please say how many in Other): commonwealth_officer
       - Witness: commonwealth_witness
       - Video: commonwealth_video
       - Audio: commonwealth_audio
@@ -391,10 +404,10 @@ fields:
       - Documents: commonwealth_documents
       - Physical evidence: commonwealth_physical_evidence
       - Other: commonwealth_other
-  - Other choice: commonwealth_other
-    show if: 
-      variable: commonwealth_evidence
-      is: other
+    none of the above: False
+  - Other: commonwealth_other
+    datatype: text
+    required: False
 ---
 id: Specifications cont d
 question: |
@@ -413,6 +426,7 @@ question: |
   Specifications cont'd
 fields:
   - 'Documents included': documents_included
+    datatype: checkboxes
     choices:
       - Application for complaint: documents_application
       - Complaint: documents_complaint
@@ -422,6 +436,7 @@ fields:
       - Defendant's BOP: documents_bop
       - Motion judge's written findings and rulings, if any: documents_motion_judge
       - Commonwealth's opposition, if any: documents_opposition
+    none of the above: False
 ---
 progress: 100
 id: download
@@ -503,7 +518,6 @@ attachment:
       - "hospital_dept": ${ police_hospital }
       - "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
-      - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed2 }
       - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
       - "reason_for_decision": ${ decision_reason }
       - "motion_to_suppress_dismiss_was": ${ motion_result }
@@ -610,10 +624,6 @@ review:
     button: |
       **If applicable, what was the item suppressed on most serious charge?**:
       ${ serious_suppressed }
-  - Edit: serious_suppressed2
-    button: |
-      **If applicable, what was item suppressed on most serious charge?**:
-      ${ serious_suppressed2 }
   - Edit: else_suppressed
     button: |
       **If applicable, was anything else suppressed by the court?**:
