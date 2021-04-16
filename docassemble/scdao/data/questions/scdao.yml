@@ -281,7 +281,7 @@ question: |
 subquestion: |
   Please continue filling in these specifications.
 fields:
-  - 'Trial Court': trial_trial_court
+  - 'Court': trial_trial_court
     choices:
     - Suffolk Superior
     - BMC Central
