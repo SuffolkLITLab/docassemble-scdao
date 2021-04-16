@@ -111,7 +111,7 @@ data:
        "docket_number": ${ docket_number }
        "defendant_name_last": ${ defendant.name.last }
        "defendant_name_first": ${ defendant.name.first }
-       "trial_court_name": ${ trial_court }
+       "trial_trial_court": ${ trial_trial_court }
        "judge1_name_full": ${ judge1_name_full }
        "defense_counsel_name_first": ${ defense_counsel.name.first }
        "judge2_name_full": ${ judge2_name_full }
@@ -281,6 +281,22 @@ question: |
 subquestion: |
   Please continue filling in these specifications.
 fields:
+  - 'Trial Court': trial_trial_court
+    choices:
+    - Suffolk Superior
+    - BMC Central
+    - Roxbury Division of the BMC
+    - Brighton Division of the BMC
+    - Charlestown Division of the BMC
+    - Dorchester Division of the BMC
+    - East Boston Division of the BMC
+    - South Boston Division of the BMC
+    - West Roxbury  Division of the BMC
+    - Chelsea District Court
+    - Boston Juvenile Court
+    - Chelsea Juvenile Court
+    - Dorchester Juvenile Court
+    - West Roxbury Juvenile Court
   - 'Date of Incident': incident_date
     datatype: date
   - 'Date Charged': charged_date
@@ -510,7 +526,7 @@ attachment:
       - "docket_number": ${ docket_number }
       - "defendant_name_last": ${ defendant.name.last }
       - "defendant_name_first": ${ defendant.name.first }
-      - "trial_court_name": ${ trial_court }
+      - "trial_trial_court": ${ trial_trial_court }
       - "judge1_name_full": ${ judge1_name_full }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
       - "judge2_name_full": ${ judge2_name_full }
