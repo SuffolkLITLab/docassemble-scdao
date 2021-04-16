@@ -40,7 +40,7 @@ code: |
   interview_metadata['case_integrity_review_form'].update({
     'title': 'Case Integrity Review Form',
     'short title': 'Case Integrity Review Form',
-    'description': 'This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.',
+    'description': '[description and instructions go here]',
     'original_form': '',
     'allowed courts': [
       'Boston Municipal Court',
@@ -158,7 +158,7 @@ code: |
   nav.set_section('review_case_integrity_review_form')
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
-  user_ask_role =  "defendant"
+  user_ask_role =  "plaintiff"
   pcf_number
   docket_number
   defendant_charges
@@ -212,7 +212,7 @@ decoration: form-lineal
 question: |
   ${interview_short_title}
 subquestion: |
-  This form allows defendants the right to apply for a case integrity review if they believe there was evidence suppressed that shouldn’t have been, or if they believe there was another type of excessive action/foul play during their hearing.
+  [description and instructions go here]
   
   This site is not a lawyer. If you would like a lawyer, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
