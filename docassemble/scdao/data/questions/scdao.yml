@@ -201,7 +201,7 @@ code: |
 id: Review your form before you download it.
 continue button field: case_integrity_review_form_preview_question
 question: |
-  Review your form before you download it.
+  Review your form.
 subquestion: |
   Here is a preview of the form you'll download on the next page. 
   
