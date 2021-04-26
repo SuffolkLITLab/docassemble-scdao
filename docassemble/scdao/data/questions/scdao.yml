@@ -164,11 +164,11 @@ code: |
   defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
-  incident_date.format_date('MM/DD/YYYY')
-  hearing_date.format_date('MM/DD/YYYY')
-  charged_date.format_date('MM/DD/YYYY')
-  decision_date.format_date('MM/DD/YYYY')
-  next_court_date.format_date('MM/DD/YYYY')
+  incident_date
+  hearing_date
+  charged_date
+  decision_date
+  next_court_date
   evidence_hearing_summary
   police_department
   serious_suppressed
@@ -186,14 +186,14 @@ code: |
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
-  defendant
-  set_progress(18.18)
-  judges
-  defense_counsel.name.first
-  set_progress(36.36)
   ada.name.first
   defense_counsel.name.last
+  set_progress(18.18)
   ada.name.last
+  defense_counsel.name.first
+  set_progress(36.36)
+  defendant
+  judges
   trial_court
   set_progress(27.27)
   case_integrity_review_form = True
@@ -245,8 +245,6 @@ subquestion: |
 fields:
   - 'PCF number (if known)': pcf_number
     required: False
-  - 'LEAD database review?': lead_database_review
-    datatype: yesno 
   - Type of Motion / Action / Review Request: request_type1
     choices:
       - No Bill
@@ -403,6 +401,8 @@ fields:
       is: Other
     datatype: text
 #    required: False
+  - 'LEAD database review?': lead_database_review
+    datatype: yesno 
 ---
 id: Specifications cont d
 question: |
@@ -422,6 +422,7 @@ id: Specifications cont d
 question: |
   Specifications cont'd
 fields:
+#  - 
   - If a suppression order, was suppression because of problem with (check all that apply): suppressed_order
     datatype: checkboxes
     choices:
@@ -579,10 +580,6 @@ review:
     button: |
       **PCF number (if known)**:
       ${ pcf_number }
-  - Edit: lead_database_review
-    button: |
-      **LEAD database review?**:
-      ${ word(yesno(lead_database_review)) }
   - Edit: request_type1
     button: |
       **Type of Motion / Action / Review Request**:
@@ -643,6 +640,10 @@ review:
     button: |
       **Reason for decision?**:
       ${ decision_reason }
+  - Edit: lead_database_review
+    button: |
+      **LEAD database review?**:
+      ${ word(yesno(lead_database_review)) }
   - Edit: motion_result
     button: |
       **Motion to Suppress / Dismiss was:**:
@@ -687,34 +688,6 @@ review:
       % for my_var in docket_number:
         * ${ my_var }
       % endfor
-  - Edit: defendant[0].name.last
-    button: |
-      # NOTE: a question block with 'defendant.revisit'
-      # lets the user edit all of the items at once
-      **defendant**
-      % for my_var in defendant:
-        * ${ my_var }
-      % endfor
-  - Edit: trial_court.name.first
-    button: |
-      # NOTE: a question block with 'courts.revisit'
-      # lets the user edit all of the items at once
-      **courts**
-      % for my_var in courts:
-        * ${ my_var }
-      % endfor
-  - Edit: witnesses[0].name.first
-    button: |
-      # NOTE: a question block with 'witnesses.revisit'
-      # lets the user edit all of the items at once
-      **witnesses**
-      % for my_var in witnesses:
-        * ${ my_var }
-      % endfor
-  - Edit: judges
-    button: |
-      **judges**:
-      ${ judges }
   - Edit: defense_counsel.name.first
     button: |
       **defense_counsel.name.first**:
@@ -731,3 +704,31 @@ review:
     button: |
       **ada.name.last**:
       ${ ada.name.last }
+  - Edit: defendant[0].name.last
+    button: |
+      # NOTE: a question block with 'defendant.revisit'
+      # lets the user edit all of the items at once
+      **defendant**
+      % for my_var in defendant:
+        * ${ my_var }
+      % endfor
+  - Edit: witnesses[0].name.first
+    button: |
+      # NOTE: a question block with 'witnesses.revisit'
+      # lets the user edit all of the items at once
+      **witnesses**
+      % for my_var in witnesses:
+        * ${ my_var }
+      % endfor
+  - Edit: judges
+    button: |
+      **judges**:
+      ${ judges }
+  - Edit: trial_court.name.first
+    button: |
+      # NOTE: a question block with 'courts.revisit'
+      # lets the user edit all of the items at once
+      **courts**
+      % for my_var in courts:
+        * ${ my_var }
+      % endfor
