@@ -164,11 +164,11 @@ code: |
   defendant_charges
   set_progress(9.09)
   rule_thirteen_compliance
-  incident_date.format_date('MM/dd/yyyy')
-  hearing_date.format_date('MM/dd/yyyy')
-  charged_date.format_date('MM/dd/yyyy')
-  decision_date.format_date('MM/dd/yyyy')
-  next_court_date.format_date('MM/dd/yyyy')
+  incident_date.format_date('MM/DD/YYYY')
+  hearing_date.format_date('MM/DD/YYYY')
+  charged_date.format_date('MM/DD/YYYY')
+  decision_date.format_date('MM/DD/YYYY')
+  next_court_date.format_date('MM/DD/YYYY')
   evidence_hearing_summary
   police_department
   serious_suppressed
@@ -297,6 +297,7 @@ fields:
     datatype: date
   - 'Next Court Date': next_court_date
     datatype: date
+    required: False
   - 'Was Defense counsel -': was_defense_counsel
     choices:
       - Appointed: defense_appointed
@@ -354,8 +355,11 @@ fields:
       - Paraphernalia
       - Other
   - Other: serious_suppressed_other
+    show if:
+      variable: serious_suppressed
+      is: Other
     datatype: text
-    required: False
+#    required: False
   - note: |
       If applicable, was anything else suppressed by the court:
   - Check all that apply: else_suppressed
@@ -371,8 +375,11 @@ fields:
       - Other: else_suppressed_other
     none of the above: False
   - Other: else_suppressed_other1
+    show if:
+      variable: else_suppressed
+      is: Other
     datatype: text
-    required: False
+#    required: False
 ---
 id: Specifications cont d
 question: |
@@ -391,8 +398,11 @@ fields:
       - Other: decision_reason_other
     none of the above: False
   - Other: decision_reason_other1
+    show if:
+      variable: decision_reason
+      is: Other
     datatype: text
-    required: False
+#    required: False
 ---
 id: Specifications cont d
 question: |
@@ -427,8 +437,11 @@ fields:
       - Other: suppressed_other
     none of the above: False
   - Other: suppressed_other1
+    show if:
+      variable: suppressed_order
+      is: Other
     datatype: text
-    required: False
+#    required: False
 ---
 question: |
   Specifications cont'd
@@ -446,8 +459,11 @@ fields:
       - Other: commonwealth_other
     none of the above: False
   - Other: commonwealth_other
+    show if:
+      variable: commonwealth_evidence
+      is: Other
     datatype: text
-    required: False
+#    required: False
 ---
 id: Specifications cont d
 question: |
@@ -456,9 +472,13 @@ subquestion: |
   Please elaborate on the following:
 fields:
   - 'Summary of evidence at hearing:': evidence_hearing_summary
+    datatype: area
   - "Commonwealth's legal argument at the hearing:": commonwealth_legal_argument
+    datatype: area
   - "Basis for judge's decision (if no written findings and rulings)": decision_basis
+    datatype: area
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
+    datatype: area
 ---
 id: Specifications cont d
 question: |

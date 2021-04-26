@@ -17,6 +17,7 @@ class Charges(CustomDataType):
                 multiField: "firstName",
                 hidden:true,
                 id:"id",
+                noResult:'English',
                 format:"%firstName% · %lastName%"
             });
         });
