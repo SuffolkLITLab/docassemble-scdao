@@ -441,7 +441,7 @@ fields:
   - Other: decision_reason_other1
     show if:
       variable: decision_reason
-      is: Other
+      is: decision_reason_other
     datatype: text
 #    required: False
 ---
@@ -481,7 +481,7 @@ fields:
   - Other: suppressed_other1
     show if:
       variable: suppressed_order
-      is: Other
+      is: suppressed_other
     datatype: text
 #    required: False
 ---
@@ -503,7 +503,7 @@ fields:
   - Other: commonwealth_other
     show if:
       variable: commonwealth_evidence
-      is: Other
+      is: commonwealth_other
     datatype: text
 #    required: False
 ---
@@ -594,6 +594,7 @@ attachment:
       - "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
       - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
+      - "else_suppressed_cash": ${ else_suppressed["else_suppressed_cash"] }
       - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed1 }
       - "reason_for_decision": ${ decision_reason }
       - "reason_for_decision_other": ${ decision_reason_other1 }
