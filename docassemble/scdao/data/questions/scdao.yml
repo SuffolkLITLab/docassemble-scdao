@@ -245,15 +245,19 @@ id: docket number
 question: |
   What is the docket number for your case?
 fields:
-  - I don't know the docket number: dont_know_docket_number
+  - Type of Motion was No Bill Grand Jury: dont_know_docket_number
     datatype: yesno    
   - no label: docket_number
     hide if: dont_know_docket_number
     hint: e.g., 000YY_ _CR _ _ _ _ _ _ _
+#  - No Bill: no_docket_number
+#    show if:
+#      variable: request_type1
+#      is: No Bill
 validation code: |
   # This should be safe to 
   if dont_know_docket_number:
-    docket_number = ''      
+    docket_number = '' 
 ---
 id: your name
 sets:
@@ -296,7 +300,7 @@ fields:
       - Other
   - Other: request_other
     show if:
-      variable: request_type2
+      variable: request_type1
       is: Other
   - 'Who was the judge?': judge1_name_full
   - 'If there was a second, who was the judge?': judge2_name_full
@@ -383,6 +387,8 @@ question: |
 fields:
   - Was there an evidentiary hearing?: evidentiary_hearing
     datatype: yesno
+  - Was an item suppressed?: is_item_suppressed
+    datatype: yesno
   - If applicable, what was the item suppressed on most serious charge: serious_suppressed
     choices:
       - Cash
@@ -398,6 +404,10 @@ fields:
       variable: serious_suppressed
       is: Other
     datatype: text
+#  - Other: serious_suppressed_other
+#    show if:
+#      variable: serious_suppressed
+#      is: Other
 #    required: False
   - note: |
       If applicable, was anything else suppressed by the court:
@@ -413,10 +423,10 @@ fields:
       - Paraphernalia: else_suppressed_paraphernalia
       - Other: else_suppressed_other
     none of the above: False
-  - Other: else_suppressed_other1
+  - Other: else_suppressed_other_text
     show if:
-      variable: else_suppressed
-      is: Other
+      variable: else_suppressed_other
+      is: true
     datatype: text
 #    required: False
 ---
