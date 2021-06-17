@@ -122,7 +122,6 @@ data:
        "lead_database_review": ${ lead_database_review }
        "lead_database_review_no": ${ not lead_database_review }
        "request_type1": ${ request_type1 }
-       "request_type2": ${ request_type2 }
        "incident_date": ${ incident_date }
        "charged_date": ${ charged_date }
        "hearing_date": ${ hearing_date }
@@ -141,7 +140,6 @@ data:
        "rule_thirteen_compliance": ${ rule_thirteen_compliance }
        "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
        "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-       "suppressed_other": ${ else_suppressed_other1 }
        "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
        "commonwealth_other": ${ commonwealth_other }
        "evidence_hearing_summary": ${ evidence_hearing_summary }
@@ -591,7 +589,6 @@ attachment:
       - "lead_database_review": ${ lead_database_review }
       - "lead_database_review_no": ${ not lead_database_review }
       - "request_type1": ${ request_type1 }
-      - "request_type2": ${ request_type2 }
       - "incident_date": ${ incident_date }
       - "charged_date": ${ charged_date }
       - "hearing_date": ${ hearing_date }
@@ -612,7 +609,6 @@ attachment:
       - "rule_thirteen_compliance": ${ rule_thirteen_compliance }
       - "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
       - "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-      - "suppressed_other": ${ else_suppressed_other1 }
       - "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
       - "commonwealth_other": ${ commonwealth_other }
       - "evidence_hearing_summary": ${ evidence_hearing_summary }
@@ -636,10 +632,6 @@ review:
     button: |
       **Type of Motion / Action / Review Request**:
       ${ request_type1 }
-  - Edit: request_type2
-    button: |
-      **Type of Motion / Action / Review Request**:
-      ${ request_type2 }
   - Edit: incident_date
     button: |
       **Date of Incident**:
