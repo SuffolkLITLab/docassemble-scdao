@@ -896,8 +896,10 @@ fields:
   - Was there an evidentiary hearing?: evidentiary_hearing
     datatype: yesno
   - Was an item suppressed?: is_item_suppressed
+    show if: evidentiary_hearing
     datatype: yesno
   - If applicable, what was the item suppressed on most serious charge: serious_suppressed
+    show if: is_item_suppressed
     choices:
       - Cash
       - Cell phone
@@ -912,14 +914,11 @@ fields:
       variable: serious_suppressed
       is: Other
     datatype: text
-#  - Other: serious_suppressed_other
-#    show if:
-#      variable: serious_suppressed
-#      is: Other
-#    required: False
-  - note: |
-      If applicable, was anything else suppressed by the court:
-  - Check all that apply: else_suppressed
+  - Was another item suppressed?: another_item_suppressed
+    show if: is_item_suppressed
+    datatype: yesno
+  - If applicable, was anything else suppressed by the court (check all that apply): else_suppressed
+    show if: another_item_suppressed
     datatype: checkboxes
     choices:
       - Cash (if cash, please write amount seize in Other): else_suppressed_cash
