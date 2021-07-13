@@ -175,6 +175,12 @@ code: |
     is_item_suppressed
   if evidentiary_hearing == True:
     decision_reason
+  if evidentiary_hearing == True:
+    commonwealth_evidence
+  if evidentiary_hearing == True:
+    documents_included
+  if evidentiary_hearing == True:
+    evidence_hearing_summary
   if is_item_suppressed == True:
     serious_suppressed
   if is_item_suppressed == True:
@@ -203,12 +209,12 @@ code: |
   set_progress(18.18)
   # ada.name.last
   defense_counsel.name.first
+  case_integrity_review_form = True
   set_progress(36.36)
   defendant
   judges
   trial_court
   set_progress(27.27)
-  case_integrity_review_form = True
 ---
 id: Review your form before you download it.
 continue button field: case_integrity_review_form_preview_question
