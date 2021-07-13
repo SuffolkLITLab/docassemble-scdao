@@ -84,7 +84,7 @@ sections:
 objects:
   - judges: ALPeopleList.using(there_are_any=True)
   - defendant: ALIndividual
-  - ada: ALIndividual
+  # - ada: ALIndividual
   - defense_counsel: ALIndividual
 ---
 mandatory: True
@@ -115,9 +115,9 @@ data:
        "judge1_name_full": ${ judge1_name_full }
        "defense_counsel_name_first": ${ defense_counsel.name.first }
        "judge2_name_full": ${ judge2_name_full }
-       "ada_name_first": ${ ada.name.first }
+#       "ada_name_first": ${ ada.name.first }
        "defense_counsel_name_last": ${ defense_counsel.name.last }
-       "ada_name_last": ${ ada.name.last }
+#       "ada_name_last": ${ ada.name.last }
        "pcf_number": ${ pcf_number }
        "lead_database_review": ${ lead_database_review }
        "lead_database_review_no": ${ not lead_database_review }
@@ -171,6 +171,16 @@ code: |
   charged_date
   decision_date
   next_court_date
+  if evidentiary_hearing == True:
+    is_item_suppressed
+  if evidentiary_hearing == True:
+    decision_reason
+  if is_item_suppressed == True:
+    serious_suppressed
+  if is_item_suppressed == True:
+    else_suppressed
+  if is_item_suppressed == True:
+    suppressed_order
   evidence_hearing_summary
   police_department
   serious_suppressed
@@ -188,10 +198,10 @@ code: |
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
-  ada.name.first
+  # ada.name.first
   defense_counsel.name.last
   set_progress(18.18)
-  ada.name.last
+  # ada.name.last
   defense_counsel.name.first
   set_progress(36.36)
   defendant
@@ -248,10 +258,6 @@ fields:
   - no label: docket_number
     hide if: dont_know_docket_number
     hint: e.g., 000YY_ _CR _ _ _ _ _ _ _
-#  - No Bill: no_docket_number
-#    show if:
-#      variable: request_type1
-#      is: No Bill
 validation code: |
   # This should be safe to 
   if dont_know_docket_number:
@@ -387,6 +393,11 @@ fields:
     datatype: yesno
   - Was an item suppressed?: is_item_suppressed
     datatype: yesno
+---
+id: Specifications cont d
+question: |
+  Item suppressed:
+fields:
   - If applicable, what was the item suppressed on most serious charge: serious_suppressed
     choices:
       - Cash
@@ -582,9 +593,9 @@ attachment:
       - "judge1_name_full": ${ judge1_name_full }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
       - "judge2_name_full": ${ judge2_name_full }
-      - "ada_name_first": ${ ada.name.first }
+     # - "ada_name_first": ${ ada.name.first }
       - "defense_counsel_name_last": ${ defense_counsel.name.last }
-      - "ada_name_last": ${ ada.name.last }
+     # - "ada_name_last": ${ ada.name.last }
       - "pcf_number": ${ pcf_number }
       - "lead_database_review": ${ lead_database_review }
       - "lead_database_review_no": ${ not lead_database_review }
@@ -736,18 +747,18 @@ review:
     button: |
       **defense_counsel.name.first**:
       ${ defense_counsel.name.first }
-  - Edit: ada.name.first
-    button: |
-      **ada.name.first**:
-      ${ ada.name.first }
+ # - Edit: ada.name.first
+ #   button: |
+ #     **ada.name.first**:
+ #     ${ ada.name.first }
   - Edit: defense_counsel.name.last
     button: |
       **defense_counsel.name.last**:
       ${ defense_counsel.name.last }
-  - Edit: ada.name.last
-    button: |
-      **ada.name.last**:
-      ${ ada.name.last }
+ # - Edit: ada.name.last
+ #   button: |
+ #     **ada.name.last**:
+ #     ${ ada.name.last }
   - Edit: defendant[0].name.last
     button: |
       # NOTE: a question block with 'defendant.revisit'
