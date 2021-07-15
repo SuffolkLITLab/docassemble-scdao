@@ -171,28 +171,33 @@ code: |
   charged_date
   decision_date
   next_court_date
-  showif('is_item_suppressed', evidentiary_hearing)
-  showif('decision_reason', evidentiary_hearing)
-  showif('commonwealth_evidence', evidentiary_hearing)
-  showif('documents_included', evidentiary_hearing)
-  showif('evidence_hearing_summary', evidentiary_hearing)
-  showif('commonwealth_legal_argument', evidentiary_hearing)
-  showif('commonwealth_legal_argument', evidentiary_hearing)
-  showif('decision_basis', evidentiary_hearing)
-  showif('recommendation', evidentiary_hearing)
-  showif('was_defense_counsel', evidentiary_hearing)
-  showif('findings', evidentiary_hearing)
-  showif('serious_suppressed', is_item_suppressed)
-  showif('else_suppressed', is_item_suppressed)
-  showif('suppressed_order', is_item_suppressed)
-  evidence_hearing_summary
+  if evidentiary_hearing == True:
+    is_item_suppressed
+  if evidentiary_hearing == True:
+    decision_reason
+  if evidentiary_hearing == True:
+    commonwealth_evidence
+  if evidentiary_hearing == True:
+    documents_included
+  if evidentiary_hearing == True:
+    evidence_hearing_summary
+  if evidentiary_hearing == True:
+    commonwealth_legal_argument
+  if evidentiary_hearing == True:
+    decision_basis
+  if evidentiary_hearing == True:
+    recommendation
+  if evidentiary_hearing == True:
+    was_defense_counsel
+  if evidentiary_hearing == True:
+    findings
+  if is_item_suppressed == True:
+    serious_suppressed
+  if is_item_suppressed == True:
+    else_suppressed
+  if is_item_suppressed == True:
+    suppressed_order
   police_department
-  serious_suppressed
-  else_suppressed
-  decision_reason
-  suppressed_order
-  commonwealth_evidence
-  documents_included
   users.there_is_another = False
   addresses_to_search = False
   all_matches = False
@@ -401,7 +406,7 @@ fields:
 ---
 id: Specifications cont d
 question: |
-  Items suppressed:
+  Fill out the following:
 fields:
   - Was there an evidentiary hearing?: evidentiary_hearing
     datatype: yesno
