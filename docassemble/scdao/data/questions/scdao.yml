@@ -135,7 +135,7 @@ data:
        "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
        "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
        "reason_for_decision": ${ decision_reason }
-       "reason_for_decision_other": ${ decision_reason_other1 }
+       "reason_for_decision_other": ${ decision_reason_other }
        "motion_to_suppress_dismiss_was": ${ motion_result }
        "rule_thirteen_compliance": ${ rule_thirteen_compliance }
        "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
@@ -418,17 +418,20 @@ question: |
   Item suppressed:
 fields:
   - If applicable, what was the item suppressed on most serious charge: serious_suppressed
+    datatype: radio
     choices:
-      - Cash
-      - Cell phone
-      - Drugs
-      - Guns
-      - Statements
-      - Vehicle
-      - Paraphernalia
-      - Other
+      - Cash: serious_suppressed_cash
+      - Cell phone: serious_suppressed_cell
+      - Drugs: serious_suppressed_drugs
+      - Guns: serious_suppressed_guns
+      - Statements: serious_suppressed_statements
+      - Vehicle: serious_suppressed_vehicle
+      - Paraphernalia: serious_suppressed_paraphernalia
+      - Other: serious_suppressed_other
   - Other: serious_suppressed_other
-    show if: serious_suppressed["serious_suppressed_other"]
+    show if: 
+      variable: serious_suppressed
+      is: serious_suppressed_other
 ---
 id: Specifications cont d
 question: |
@@ -446,7 +449,7 @@ fields:
       - Paraphernalia: else_suppressed_paraphernalia
       - Other: else_suppressed_other
     none of the above: False
-  - Other: else_suppressed_other_text
+  - Other: else_suppressed_other
     show if: else_suppressed["else_suppressed_other"]
 #    required: False
 ---
@@ -468,7 +471,7 @@ fields:
       - Misapplication of law to facts: decision_misapplication
       - Other: decision_reason_other
     none of the above: False
-  - Other: decision_reason_other1
+  - Other: decision_reason_other
     show if: decision_reason["decision_reason_other"]
 #    required: False
 ---
@@ -613,11 +616,10 @@ attachment:
       - "police_department_involved": ${ police_department }
       - "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
       - "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
-      - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
       - "else_suppressed_cash": ${ else_suppressed["else_suppressed_cash"] }
-      - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed1 }
+      - "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
       - "reason_for_decision": ${ decision_reason }
-      - "reason_for_decision_other": ${ decision_reason_other1 }
+      - "reason_for_decision_other": ${ decision_reason_other }
       - "motion_to_suppress_dismiss_was": ${ motion_result }
       - "rule_thirteen_compliance": ${ rule_thirteen_compliance }
       - "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
