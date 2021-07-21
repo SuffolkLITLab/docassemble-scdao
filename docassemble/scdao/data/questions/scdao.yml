@@ -171,31 +171,31 @@ code: |
   charged_date
   decision_date
   next_court_date
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     is_item_suppressed
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     decision_reason
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     commonwealth_evidence
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     documents_included
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     evidence_hearing_summary
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     commonwealth_legal_argument
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     decision_basis
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     recommendation
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     was_defense_counsel
-  if evidentiary_hearing == True:
+  if evidentiary_hearing:
     findings
-  if is_item_suppressed == True:
+  if is_item_suppressed:
     serious_suppressed
-  if is_item_suppressed == True:
+  if is_item_suppressed:
     else_suppressed
-  if is_item_suppressed == True:
+  if is_item_suppressed:
     suppressed_order
   police_department
   users.there_is_another = False
