@@ -279,7 +279,7 @@ sets:
 question:  |
   What is your name?
 fields:
-  - Are you the ADA?: user_ada
+  - I am the ADA: user_ada
     datatype: yesno
   - code: |
       users[0].name_fields()
@@ -428,15 +428,7 @@ fields:
       - Paraphernalia
       - Other
   - Other: serious_suppressed_other
-    show if:
-      variable: serious_suppressed
-      is: Other
-    datatype: text
-#  - Other: serious_suppressed_other
-#    show if:
-#      variable: serious_suppressed
-#      is: Other
-#    required: False
+    show if: serious_suppressed["serious_suppressed_other"]
 ---
 id: Specifications cont d
 question: |
@@ -455,10 +447,7 @@ fields:
       - Other: else_suppressed_other
     none of the above: False
   - Other: else_suppressed_other_text
-    show if:
-      variable: else_suppressed_other
-      is: true
-    datatype: text
+    show if: else_suppressed["else_suppressed_other"]
 #    required: False
 ---
 id: Specifications cont d
@@ -480,10 +469,7 @@ fields:
       - Other: decision_reason_other
     none of the above: False
   - Other: decision_reason_other1
-    show if:
-      variable: decision_reason
-      is: decision_reason_other
-    datatype: text
+    show if: decision_reason["decision_reason_other"]
 #    required: False
 ---
 id: Specifications cont d
@@ -517,13 +503,10 @@ fields:
       - Standing / Expectation of Privacy: suppressed_standing_privacy
       - Lack of reasonable suspicion: suppressed_suspicion
       - Lack of probable cause: suppressed_probable_cause
-      - Other: suppressed_other
+      - Other: suppressed_order_other
     none of the above: False
-  - Other: suppressed_other1
-    show if:
-      variable: suppressed_order
-      is: suppressed_other
-    datatype: text
+  - Other: suppressed_order_other
+    show if: suppressed_order["suppressed_order_other"]
 #    required: False
 ---
 question: |
@@ -542,10 +525,7 @@ fields:
       - Other: commonwealth_other
     none of the above: False
   - Other: commonwealth_other
-    show if:
-      variable: commonwealth_evidence
-      is: commonwealth_other
-    datatype: text
+    show if: commonwealth_evidence["commonwealth_other"]
 #    required: False
 ---
 id: Specifications cont d
