@@ -119,8 +119,14 @@ data:
        "defense_counsel_name_last": ${ defense_counsel.name.last }
 #       "ada_name_last": ${ ada.name.last }
        "pcf_number": ${ pcf_number }
-       "lead_database_review": ${ lead_database_review }
-       "lead_database_review_no": ${ not lead_database_review }
+       "lead_database_review": |
+         % if evidentiary_hearing:
+         ${ lead_database_review }
+         % endif
+       "lead_database_review_no": |
+         % if evidentiary_hearing:
+         ${ not lead_database_review }
+         % endif
        "request_type1": ${ request_type1 }
        "incident_date": ${ incident_date }
        "charged_date": ${ charged_date }
@@ -132,21 +138,54 @@ data:
        "defendant_charges": ${ defendant_charges }
        "police_department_involved": ${ police_department }
        "specify_police_unit_or_univ_college_hospital_involved_if_known": ${ unit_involved }
-       "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": ${ serious_suppressed }
-       "if_applicable_was_anything_else_suppressed_by_the_court?": ${ else_suppressed }
-       "reason_for_decision": ${ decision_reason }
-       "reason_for_decision_other": ${ decision_reason_other }
+       "if_applicable_what_was_the_item_suppressed_on_most_serious_charge?": |
+         % if is_item_suppressed:
+         ${ serious_suppressed }
+         % endif
+       "if_applicable_was_anything_else_suppressed_by_the_court?": |
+         % if is_item_suppressed:
+         ${ else_suppressed }
+         % endif
+       "reason_for_decision": |
+         % if evidentiary_hearing:
+         ${ decision_reason }
+         % endif
+#       "reason_for_decision_other": ${ decision_reason_other }
        "motion_to_suppress_dismiss_was": ${ motion_result }
        "rule_thirteen_compliance": ${ rule_thirteen_compliance }
        "rule_thirteen_compliance_no": ${ not rule_thirteen_compliance }
-       "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": ${ suppressed_order }
-       "commonwealth_evidence_was_check_all_that_apply" : ${ commonwealth_evidence }
-       "commonwealth_other": ${ commonwealth_other }
-       "evidence_hearing_summary": ${ evidence_hearing_summary }
-       "commonwealth_legal_argument": ${ commonwealth_legal_argument }
-       "decision_basis": ${ decision_basis }
-       "recommendation": ${ recommendation }
-       "documents_included" : ${ documents_included }
+       "if_a_suppression_order_was_suppression_because_of_problem with_check_all_that_apply)": |
+         % if is_item_suppressed:
+         ${ suppressed_order }
+         % endif
+       "commonwealth_evidence_was_check_all_that_apply" : |
+         % if evidentiary_hearing:
+         ${ commonwealth_evidence }
+         % endif
+       "commonwealth_other": |
+         % if evidentiary_hearing and commonwealth_evidence:
+         ${ commonwealth_other }
+         % endif
+       "evidence_hearing_summary": |
+         % if evidentiary_hearing:
+         ${ evidence_hearing_summary }
+         % endif
+       "commonwealth_legal_argument": |
+         % if evidentiary_hearing:
+         ${ commonwealth_legal_argument }
+         % endif
+       "decision_basis": |
+         % if evidentiary_hearing:
+         ${ decision_basis }
+         % endif
+       "recommendation": |
+         % if evidentiary_hearing:
+         ${ recommendation }
+         % endif
+       "documents_included" : |
+         % if evidentiary_hearing:
+         ${ documents_included }
+         % endif
 ---
 id: interview_order_case_integrity_review_form
 code: |
@@ -171,7 +210,7 @@ code: |
   charged_date
   decision_date
   next_court_date
-  if evidentiary_hearing:
+  if evidentiary_hearing == True:
     is_item_suppressed
   if evidentiary_hearing:
     decision_reason
