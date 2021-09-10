@@ -84,7 +84,7 @@ sections:
 objects:
   - judges: ALPeopleList.using(there_are_any=True)
   - defendant: ALIndividual
-  # - ada: ALIndividual
+  - ada: ALIndividual
   - defense_counsel: ALIndividual
 ---
 mandatory: True
@@ -115,9 +115,9 @@ data:
        "judge1_name_full": ${ judge1_name_full }
        "defense_counsel_name_first": ${ defense_counsel.name.first }
        "judge2_name_full": ${ judge2_name_full }
-#       "ada_name_first": ${ ada.name.first }
+       "ada_name_first": ${ ada.name.first }
        "defense_counsel_name_last": ${ defense_counsel.name.last }
-#       "ada_name_last": ${ ada.name.last }
+       "ada_name_last": ${ ada.name.last }
        "pcf_number": ${ pcf_number }
        "lead_database_review": |
          % if evidentiary_hearing:
@@ -246,10 +246,10 @@ code: |
   
   # Set the answer file name.
   set_parts(subtitle=str(users))
-  # ada.name.first
+  ada.name.first
   defense_counsel.name.last
   set_progress(18.18)
-  # ada.name.last
+  ada.name.last
   defense_counsel.name.first
   case_integrity_review_form = True
   set_progress(36.36)
@@ -355,8 +355,518 @@ fields:
       variable: request_type1
       is: Other
   - 'Who was the judge?': judge1_name_full
-  - 'If there was a second, who was the judge?': judge2_name_full
-    required: False
+    choices:
+    - ABANY, STEPHEN S
+    - ABRAMS, RUTH I
+    - AGNES, PETER W
+    - ALCH, GERALD
+    - AMES, MARY K
+    - ANDERSON, R PETER
+    - ARMSTRONG, CHRISTOPHER J
+    - BALL, CAROL S
+    - BARNES, BENJAMIN
+    - BARRETT, CHARLES F
+    - BARRY-SMITH, CHRISTOPHER K
+    - BAYLOR, ROBERT E
+    - BERNSTEIN, PATRICIA E
+    - BLITZMAN, JAY D
+    - BOHN, ROBERT H
+    - BOLDEN, MICHAEL C
+    - BORENSTEIN, ISAAC
+    - BOTSFORD, MARGOT
+    - BRADY, PATRICK F
+    - BRADY, PETER F
+    - BRANT, JONATHAN
+    - BRASSARD, RAYMOND J
+    - BREEN, DAVID J
+    - BRENNAN, ROBERT A
+    - BRIEGER, HEIDI E
+    - BROWN-BRYANT, HELEN
+    - BROWN, FREDERICK L
+    - BUCKLEY, ELAINE M
+    - BUCKLEY, HARVEY
+    - BUCKLEY, MARIE T  
+    - BUCKLEY, PAUL V
+    - BUDD, KIMBERLY S
+    - BURNES, NONNIE S
+    - BYRNE, CATHERINE K
+    - CAMPO, ANTHONY M
+    - CANAVAN, JOHN
+    - CANNONE, BEVERLY J
+    - CAVANAUGH, PAUL J
+    - CHAPMAN, RANDY S
+    - CHERNOFF, PAUL A
+    - CHIN, RICHARD J
+    - COFFEY, JAMES W
+    - COFFEY, KATHLEEN E 
+    - COFFIN, LOUIS D    
+    - CONNOLLY, LYNDA M
+    - CONNOLLY, THOMAS E
+    - CONNOR, JOHN P JR
+    - CONNORS, THOMAS A
+    - CORBETT, JOHN P
+    - COWIN, JUDITH A
+    - COYNE, MICHAEL J
+    - COYNE, PETER
+    - CRATSLEY, JOHN C
+    - CRAVEN, JOHN J JR
+    - CRAVEN, TERRY M
+    - CRIMMINS, FRANCIS T JR
+    - CURRAN, DENNIS
+    - CURRAN, JEAN M
+    - CURRAN, PAUL
+    - "D'AVOLIO, RONALD D"
+    - DASHIELL, PAMELA M
+    - DAVIS, BRIAN A
+    - DELVECCHIO, SUZANNE V
+    - DESMOND, KENNETH V
+    - DINNEEN, JAMES F X   
+    - DOLAN, ELIZABETH J
+    - DOLAN, JAMES W
+    - DONATELLE, SHARON E
+    - DONNELLY, DAVID T
+    - DONOHUE, JAMES P
+    - DONOVAN, ELIZABETH B
+    - DONOVAN, J PETER
+    - DORTCH-OKARA, BARBARA A
+    - DOUGAN, RAYMOND G JR
+    - DREBEN, RAYA S
+    - DRISCOLL, MARY ANN
+    - FABRICANT, JUDITH
+    - FAHEY, ELIZABETH M
+    - FEELEY, TIMOTHY Q
+    - FIANDACA, KENNETH
+    - FISHMAN, KENNETH J
+    - FITZPATRICK, WILLIAM M
+    - FLAHERTY, MICHAEL
+    - FORD, DANIEL A
+    - FORDE, ANNETTE
+    - FRENIERE, DIANE C
+    - FRISON, SHANNON
+    - GAILEY, TIMOTHY H
+    - GANTS, RALPH D
+    - GAUL, JAMES
+    - GAZIANO, FRANK M
+    - GEORGES, SERGE
+    - GERMAN, MARJORY A C
+    - GERSHENGORN, WENDY
+    - GILES, LINDA E
+    - GOBOURNE, FRANCO
+    - GOODWIN, HERBERT N 
+    - GORDON, ROBERT B
+    - GRABAU, CHARLES M.
+    - GRAHAM, ROBERT MALCOLM
+    - GRANT, LISA A
+    - GRANT, LISA ANN
+    - GREANY, JOHN M
+    - GRECO, ROBERT V
+    - GREENBERG, MEL L
+    - HALL, CHARLES R
+    - HAM, CATHERINE H
+    - HAMLIN, SANDRA L
+    - HANLON, E SYDNEY
+    - HARRIS, LESLIE
+    - HARRISON, DAVID E
+    - HELY, CHARLES J
+    - HERSHFANG, HERBERT H
+    - HINES, GERALDINE S
+    - HINKLE, MARGARET R  
+    - HOGAN-SULLIVAN, MARY
+    - HOGAN, MAUREEN B
+    - HOPKINS, MERITA A
+    - HORGAN, THOMAS
+    - HOUSTON, JULIAN T
+    - INGE, GARRY V
+    - JARASITIS, ALLEN J
+    - JENNINGS, JOSEPH
+    - JOHNSON, CHARLES R
+    - JOHNSTON, JOSEPH F
+    - JOSEPH, SHELLEY M
+    - JOUN, MYONG J
+    - KACZMAREK, ANNE K
+    - KANTROWITZ, R MARC
+    - KAPLAN, MITCHELL H
+    - KAPLANES, THOMAS S
+    - KARSTETTER, EMILY A
+    - KAZANJIAN, HELENE
+    - KELLY, SALLY A
+    - KEY, STEVEN M
+    - KING, PATRICK J
+    - KIRPALANI, MAYNARD M
+    - KLUBOCK, DANIEL J
+    - KOTTMYER, DIANE M
+    - KRUPP, PETER B
+    - LAMOTHE, JAMES L
+    - LAURIAT, PETER M
+    - LAWTON, MARK E
+    - LEARY, GEORGE F 
+    - LEARY, PAUL K  
+    - LEIBENSPERGER, EDWARD P
+    - LEIGHTON, JOSEPH F
+    - LEWIS, PAUL D 
+    - LIMON, STEPHEN M  
+    - LIVINGSTON, D DUNBAR
+    - LOCKE, JEFFREY
+    - LOPEZ, MARIA I
+    - LOWY, DAVID
+    - LU, JOHN
+    - LYNCH, NEIL L
+    - LYONS, TRACY LEE
+    - MACDONALD, D LLOYD
+    - MACHERA, MATTHEW J
+    - MAHONEY, PAUL F
+    - MALDONADO, DIANA L
+    - MARTIN, GORDON A
+    - MAY, THOMAS J
+    - MCCORMICK, LAWRENCE E
+    - MCDANIEL, JAMES D JR
+    - MCDONALD, JOHN E JR
+    - MCEVOY, CHRISTINE M 
+    - MCHUGH, JAMES F III
+    - MCINTYRE, FRANCES
+    - MCKENNA, ROBERT J JR
+    - MCMANUS, PAUL J
+    - MEAGHER, DERMOT
+    - MILES, JUNE C
+    - MILLER, ROSALIND
+    - MORIARTY, DIANE
+    - MORIARTY, PAUL F X
+    - MULLIGAN, ROBERT A
+    - MURRAY, ROBERT F
+    - MUSE, CHRISTOPHER J
+    - NASIF, KENNETH P
+    - NEEL, STEPHEN E 
+    - NESTOR, MATTHEW J
+    - "O'BRIEN, JOHN J"
+    - "O'NEILL, GERALD F JR"
+    - ORFANELLO, MARY A
+    - PANARESE, EUGENE G
+    - PARATORE, DOMINIC J
+    - PHILLIPS, GREGORY L     
+    - POMAROLE, MICHAEL J
+    - POOLE, DAVID B
+    - POWERS, WARREN A
+    - PRINCE, JANE D
+    - QUINLAN, REGINA L
+    - REDD, EDWARD R    
+    - RICCIUTI, MICHAEL D
+    - RILEY, PATRICK J
+    - RILEY, WILLIAM J
+    - ROACH, CHRISTINE M
+    - RONQUILLO, ROBERTO JR
+    - ROSEMAN, DAVID M
+    - ROUSE, BARBARA J
+    - RUFO, ROBERT C
+    - RUSSO, DOMENIC J F
+    - SABRA, BERNADETTE L
+    - SALINGER, KENNETH W
+    - SANDERS, JANET L
+    - SARASON, ERNEST L
+    - SAVIGNANO, RICHARD D
+    - SHOPTEESE, DEBRA
+    - SIKORA, MITCHELL J JR
+    - SINGER, SARAH B
+    - SINGH, SABITA
+    - SINGLETON, SEVERLIN B
+    - SINNOTT, ELEANOR C
+    - SINNOTT, RICHARD J
+    - SMITH, HERMAN J JR.
+    - SOSMAN, MARTHA B   
+    - SPRAGUE, GEORGE R  
+    - SPRAGUE, LEAH W   
+    - SPURLOCK, CHARLES T
+    - SQUIRES-LEE, DEBRA A
+    - STAFFIER HOLTZ, NANCY
+    - STANTON, JAMES M
+    - STEWART, MICHAELA C
+    - SULLIVAN, ANTHONY P
+    - SULLIVAN, SUSAN E
+    - SULLIVAN, WILLIAM F
+    - SUMMERVILLE, MARK HART
+    - TIERNEY, JOHN A
+    - TIERNEY, WILLIAM J
+    - TOCHKA, ROBERT
+    - TRESELER, PAUL M
+    - TROY, PAUL E
+    - TYNES, JONATHAN R
+    - UHLARIK, MICHAEL A
+    - ULLMANN, ROBERT L
+    - VEARY, RAYMOND P
+    - VOLTERRA, GUY
+    - WALKER, JOSEPH M III
+    - WEINGARTEN, DAVID
+    - WELCH, RICHARD A
+    - WEXLER, JAMES H
+    - WHITE, CATHERINE A
+    - WHITEHEAD, HOWARD J
+    - WILKINS, DOUGLAS H
+    - WILKINS, HERBERT P
+    - WILSON, GARY D
+    - WILSON, PAUL D
+    - WONG, CONNIE S
+    - WRIGHT, MILTON L JR 
+    - YESSAYAN, RAFFI N
+    - ZALESKI, MARGARET A
+    - ZIEMIAN, ROBERT P
+    - ZOBEL, HILLER B
+  - Is there another judge?: judge2_name_full_check
+    datatype: yesno
+  - 'Who was the judge?': judge2_name_full
+    show if: judge2_name_full_check
+    choices:
+    - ABANY, STEPHEN S
+    - ABRAMS, RUTH I
+    - AGNES, PETER W
+    - ALCH, GERALD
+    - AMES, MARY K
+    - ANDERSON, R PETER
+    - ARMSTRONG, CHRISTOPHER J
+    - BALL, CAROL S
+    - BARNES, BENJAMIN
+    - BARRETT, CHARLES F
+    - BARRY-SMITH, CHRISTOPHER K
+    - BAYLOR, ROBERT E
+    - BERNSTEIN, PATRICIA E
+    - BLITZMAN, JAY D
+    - BOHN, ROBERT H
+    - BOLDEN, MICHAEL C
+    - BORENSTEIN, ISAAC
+    - BOTSFORD, MARGOT
+    - BRADY, PATRICK F
+    - BRADY, PETER F
+    - BRANT, JONATHAN
+    - BRASSARD, RAYMOND J
+    - BREEN, DAVID J
+    - BRENNAN, ROBERT A
+    - BRIEGER, HEIDI E
+    - BROWN-BRYANT, HELEN
+    - BROWN, FREDERICK L
+    - BUCKLEY, ELAINE M
+    - BUCKLEY, HARVEY
+    - BUCKLEY, MARIE T  
+    - BUCKLEY, PAUL V
+    - BUDD, KIMBERLY S
+    - BURNES, NONNIE S
+    - BYRNE, CATHERINE K
+    - CAMPO, ANTHONY M
+    - CANAVAN, JOHN
+    - CANNONE, BEVERLY J
+    - CAVANAUGH, PAUL J
+    - CHAPMAN, RANDY S
+    - CHERNOFF, PAUL A
+    - CHIN, RICHARD J
+    - COFFEY, JAMES W
+    - COFFEY, KATHLEEN E 
+    - COFFIN, LOUIS D    
+    - CONNOLLY, LYNDA M
+    - CONNOLLY, THOMAS E
+    - CONNOR, JOHN P JR
+    - CONNORS, THOMAS A
+    - CORBETT, JOHN P
+    - COWIN, JUDITH A
+    - COYNE, MICHAEL J
+    - COYNE, PETER
+    - CRATSLEY, JOHN C
+    - CRAVEN, JOHN J JR
+    - CRAVEN, TERRY M
+    - CRIMMINS, FRANCIS T JR
+    - CURRAN, DENNIS
+    - CURRAN, JEAN M
+    - CURRAN, PAUL
+    - "D'AVOLIO, RONALD D"
+    - DASHIELL, PAMELA M
+    - DAVIS, BRIAN A
+    - DELVECCHIO, SUZANNE V
+    - DESMOND, KENNETH V
+    - DINNEEN, JAMES F X   
+    - DOLAN, ELIZABETH J
+    - DOLAN, JAMES W
+    - DONATELLE, SHARON E
+    - DONNELLY, DAVID T
+    - DONOHUE, JAMES P
+    - DONOVAN, ELIZABETH B
+    - DONOVAN, J PETER
+    - DORTCH-OKARA, BARBARA A
+    - DOUGAN, RAYMOND G JR
+    - DREBEN, RAYA S
+    - DRISCOLL, MARY ANN
+    - FABRICANT, JUDITH
+    - FAHEY, ELIZABETH M
+    - FEELEY, TIMOTHY Q
+    - FIANDACA, KENNETH
+    - FISHMAN, KENNETH J
+    - FITZPATRICK, WILLIAM M
+    - FLAHERTY, MICHAEL
+    - FORD, DANIEL A
+    - FORDE, ANNETTE
+    - FRENIERE, DIANE C
+    - FRISON, SHANNON
+    - GAILEY, TIMOTHY H
+    - GANTS, RALPH D
+    - GAUL, JAMES
+    - GAZIANO, FRANK M
+    - GEORGES, SERGE
+    - GERMAN, MARJORY A C
+    - GERSHENGORN, WENDY
+    - GILES, LINDA E
+    - GOBOURNE, FRANCO
+    - GOODWIN, HERBERT N 
+    - GORDON, ROBERT B
+    - GRABAU, CHARLES M.
+    - GRAHAM, ROBERT MALCOLM
+    - GRANT, LISA A
+    - GRANT, LISA ANN
+    - GREANY, JOHN M
+    - GRECO, ROBERT V
+    - GREENBERG, MEL L
+    - HALL, CHARLES R
+    - HAM, CATHERINE H
+    - HAMLIN, SANDRA L
+    - HANLON, E SYDNEY
+    - HARRIS, LESLIE
+    - HARRISON, DAVID E
+    - HELY, CHARLES J
+    - HERSHFANG, HERBERT H
+    - HINES, GERALDINE S
+    - HINKLE, MARGARET R  
+    - HOGAN-SULLIVAN, MARY
+    - HOGAN, MAUREEN B
+    - HOPKINS, MERITA A
+    - HORGAN, THOMAS
+    - HOUSTON, JULIAN T
+    - INGE, GARRY V
+    - JARASITIS, ALLEN J
+    - JENNINGS, JOSEPH
+    - JOHNSON, CHARLES R
+    - JOHNSTON, JOSEPH F
+    - JOSEPH, SHELLEY M
+    - JOUN, MYONG J
+    - KACZMAREK, ANNE K
+    - KANTROWITZ, R MARC
+    - KAPLAN, MITCHELL H
+    - KAPLANES, THOMAS S
+    - KARSTETTER, EMILY A
+    - KAZANJIAN, HELENE
+    - KELLY, SALLY A
+    - KEY, STEVEN M
+    - KING, PATRICK J
+    - KIRPALANI, MAYNARD M
+    - KLUBOCK, DANIEL J
+    - KOTTMYER, DIANE M
+    - KRUPP, PETER B
+    - LAMOTHE, JAMES L
+    - LAURIAT, PETER M
+    - LAWTON, MARK E
+    - LEARY, GEORGE F 
+    - LEARY, PAUL K  
+    - LEIBENSPERGER, EDWARD P
+    - LEIGHTON, JOSEPH F
+    - LEWIS, PAUL D 
+    - LIMON, STEPHEN M  
+    - LIVINGSTON, D DUNBAR
+    - LOCKE, JEFFREY
+    - LOPEZ, MARIA I
+    - LOWY, DAVID
+    - LU, JOHN
+    - LYNCH, NEIL L
+    - LYONS, TRACY LEE
+    - MACDONALD, D LLOYD
+    - MACHERA, MATTHEW J
+    - MAHONEY, PAUL F
+    - MALDONADO, DIANA L
+    - MARTIN, GORDON A
+    - MAY, THOMAS J
+    - MCCORMICK, LAWRENCE E
+    - MCDANIEL, JAMES D JR
+    - MCDONALD, JOHN E JR
+    - MCEVOY, CHRISTINE M 
+    - MCHUGH, JAMES F III
+    - MCINTYRE, FRANCES
+    - MCKENNA, ROBERT J JR
+    - MCMANUS, PAUL J
+    - MEAGHER, DERMOT
+    - MILES, JUNE C
+    - MILLER, ROSALIND
+    - MORIARTY, DIANE
+    - MORIARTY, PAUL F X
+    - MULLIGAN, ROBERT A
+    - MURRAY, ROBERT F
+    - MUSE, CHRISTOPHER J
+    - NASIF, KENNETH P
+    - NEEL, STEPHEN E 
+    - NESTOR, MATTHEW J
+    - "O'BRIEN, JOHN J"
+    - "O'NEILL, GERALD F JR"
+    - ORFANELLO, MARY A
+    - PANARESE, EUGENE G
+    - PARATORE, DOMINIC J
+    - PHILLIPS, GREGORY L     
+    - POMAROLE, MICHAEL J
+    - POOLE, DAVID B
+    - POWERS, WARREN A
+    - PRINCE, JANE D
+    - QUINLAN, REGINA L
+    - REDD, EDWARD R    
+    - RICCIUTI, MICHAEL D
+    - RILEY, PATRICK J
+    - RILEY, WILLIAM J
+    - ROACH, CHRISTINE M
+    - RONQUILLO, ROBERTO JR
+    - ROSEMAN, DAVID M
+    - ROUSE, BARBARA J
+    - RUFO, ROBERT C
+    - RUSSO, DOMENIC J F
+    - SABRA, BERNADETTE L
+    - SALINGER, KENNETH W
+    - SANDERS, JANET L
+    - SARASON, ERNEST L
+    - SAVIGNANO, RICHARD D
+    - SHOPTEESE, DEBRA
+    - SIKORA, MITCHELL J JR
+    - SINGER, SARAH B
+    - SINGH, SABITA
+    - SINGLETON, SEVERLIN B
+    - SINNOTT, ELEANOR C
+    - SINNOTT, RICHARD J
+    - SMITH, HERMAN J JR.
+    - SOSMAN, MARTHA B   
+    - SPRAGUE, GEORGE R  
+    - SPRAGUE, LEAH W   
+    - SPURLOCK, CHARLES T
+    - SQUIRES-LEE, DEBRA A
+    - STAFFIER HOLTZ, NANCY
+    - STANTON, JAMES M
+    - STEWART, MICHAELA C
+    - SULLIVAN, ANTHONY P
+    - SULLIVAN, SUSAN E
+    - SULLIVAN, WILLIAM F
+    - SUMMERVILLE, MARK HART
+    - TIERNEY, JOHN A
+    - TIERNEY, WILLIAM J
+    - TOCHKA, ROBERT
+    - TRESELER, PAUL M
+    - TROY, PAUL E
+    - TYNES, JONATHAN R
+    - UHLARIK, MICHAEL A
+    - ULLMANN, ROBERT L
+    - VEARY, RAYMOND P
+    - VOLTERRA, GUY
+    - WALKER, JOSEPH M III
+    - WEINGARTEN, DAVID
+    - WELCH, RICHARD A
+    - WEXLER, JAMES H
+    - WHITE, CATHERINE A
+    - WHITEHEAD, HOWARD J
+    - WILKINS, DOUGLAS H
+    - WILKINS, HERBERT P
+    - WILSON, GARY D
+    - WILSON, PAUL D
+    - WONG, CONNIE S
+    - WRIGHT, MILTON L JR 
+    - YESSAYAN, RAFFI N
+    - ZALESKI, MARGARET A
+    - ZIEMIAN, ROBERT P
+    - ZOBEL, HILLER B
 ---
 id: Specifications
 question: |
@@ -637,9 +1147,9 @@ attachment:
       - "judge1_name_full": ${ judge1_name_full }
       - "defense_counsel_name_first": ${ defense_counsel.name.first }
       - "judge2_name_full": ${ judge2_name_full }
-     # - "ada_name_first": ${ ada.name.first }
+      - "ada_name_first": ${ ada.name.first }
       - "defense_counsel_name_last": ${ defense_counsel.name.last }
-     # - "ada_name_last": ${ ada.name.last }
+      - "ada_name_last": ${ ada.name.last }
       - "pcf_number": ${ pcf_number }
       - "lead_database_review": ${ lead_database_review }
       - "lead_database_review_no": ${ not lead_database_review }
@@ -790,18 +1300,18 @@ review:
     button: |
       **defense_counsel.name.first**:
       ${ defense_counsel.name.first }
- # - Edit: ada.name.first
- #   button: |
- #     **ada.name.first**:
- #     ${ ada.name.first }
+  - Edit: ada.name.first
+    button: |
+      **ada.name.first**:
+      ${ ada.name.first }
   - Edit: defense_counsel.name.last
     button: |
       **defense_counsel.name.last**:
       ${ defense_counsel.name.last }
- # - Edit: ada.name.last
- #   button: |
- #     **ada.name.last**:
- #     ${ ada.name.last }
+  - Edit: ada.name.last
+    button: |
+      **ada.name.last**:
+      ${ ada.name.last }
   - Edit: defendant[0].name.last
     button: |
       # NOTE: a question block with 'defendant.revisit'
