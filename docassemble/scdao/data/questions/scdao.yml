@@ -114,7 +114,10 @@ data:
        "trial_trial_court": ${ trial_trial_court }
        "judge1_name_full": ${ judge1_name_full }
        "defense_counsel_name_first": ${ defense_counsel.name.first }
-       "judge2_name_full": ${ judge2_name_full }
+       "judge2_name_full": |
+         % if judge2_name_full_check:
+         ${ judge2_name_full }
+         % endif
        "ada_name_first": ${ ada.name.first }
        "defense_counsel_name_last": ${ defense_counsel.name.last }
        "ada_name_last": ${ ada.name.last }
@@ -196,8 +199,8 @@ code: |
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
   user_ask_role =  "plaintiff"
-  users[0].name.first
-  users[0].name.last
+  ada.name.first
+  ada.name.last
   defense_counsel.name.first
   defense_counsel.name.last
   pcf_number
@@ -245,11 +248,11 @@ code: |
   signature_choice = False
   
   # Set the answer file name.
-  set_parts(subtitle=str(users))
-  ada.name.first
+  set_parts(subtitle=str(ada))
+  # ada.name.first
   defense_counsel.name.last
   set_progress(18.18)
-  ada.name.last
+  # ada.name.last
   defense_counsel.name.first
   case_integrity_review_form = True
   set_progress(36.36)
@@ -313,15 +316,13 @@ validation code: |
 ---
 id: your name
 sets:
-    - users[0].name.first
-    - users[0].name.last
+    - ada.name.first
+    - ada.name.last
 question:  |
-  What is your name?
+  What is the ADA's name?
 fields:
-  - I am the ADA: user_ada
-    datatype: yesno
   - code: |
-      users[0].name_fields()
+      ada.name_fields()
 ---
 id: name of ALIndividual
 sets:
@@ -906,7 +907,7 @@ id: Specifications
 question: |
   Specifications
 fields:
-  - 'Was Defense counsel -': was_defense_counsel
+  - 'Was Defense counsel': was_defense_counsel
     choices:
       - Appointed: defense_appointed
       - Retained: defense_retained
@@ -1118,7 +1119,7 @@ event: case_integrity_review_form_download
 question: |
   Your form is ready to download.
 subquestion: |
-  Thank you ${users}. Your form is ready to download and deliver.
+  Thank you. Your form is ready to download and deliver.
   
   Below is a preview of your form.
   
