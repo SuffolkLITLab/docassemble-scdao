@@ -306,7 +306,7 @@ question: |
 fields:
   - Type of Motion was No Bill Grand Jury: dont_know_docket_number
     datatype: yesno    
-  - no label: docket_number
+  - "What is the docket number for your case?": docket_number
     hide if: dont_know_docket_number
     hint: e.g., 000YY_ _CR _ _ _ _ _ _ _
 validation code: |
@@ -903,7 +903,7 @@ fields:
     datatype: date
     required: False
 ---
-id: Specifications
+id: "Specifications 2"
 question: |
   Specifications
 fields:
@@ -913,7 +913,7 @@ fields:
       - Retained: defense_retained
       - Neither - defendant pro se: defense_pro_se
 ---
-id: Specifications
+id: "Specifications 3"
 question: |
   Specifications
 fields:
@@ -954,7 +954,7 @@ fields:
   - 'Specify Police Unit (or Univ / College / Hospital) involved, if known.': unit_involved
     required: False
 ---
-id: Specifications cont d
+id: "Specifications cont d 2"
 question: |
   Fill out the following:
 fields:
@@ -963,7 +963,7 @@ fields:
   - Was an item suppressed?: is_item_suppressed
     datatype: yesno
 ---
-id: Specifications cont d
+id: "Specifications cont d 3"
 question: |
   Item suppressed:
 fields:
@@ -983,7 +983,7 @@ fields:
       variable: serious_suppressed
       is: serious_suppressed_other
 ---
-id: Specifications cont d
+id: "Specifications cont d 4"
 question: |
       If applicable, was anything else suppressed by the court:
 fields:
@@ -1003,7 +1003,7 @@ fields:
     show if: else_suppressed["else_suppressed_other"]
 #    required: False
 ---
-id: Specifications cont d
+id: "Specifications cont d 5"
 question: |
   Reasons for decision
 fields:
@@ -1025,7 +1025,7 @@ fields:
     show if: decision_reason["decision_reason_other"]
 #    required: False
 ---
-id: Specifications cont d
+id: "Specifications cont d 6"
 question: |
   Specifications cont'd
 subquestion: |
@@ -1039,7 +1039,7 @@ fields:
   - 'Rule 13 Compliance?': rule_thirteen_compliance
     datatype: yesno
 ---
-id: Specifications cont d
+id: "Specifications cont d 7"
 question: |
   Specifications cont'd
 fields:
@@ -1062,6 +1062,7 @@ fields:
     show if: suppressed_order["suppressed_order_other"]
 #    required: False
 ---
+id: "specifications contd"
 question: |
   Specifications cont'd
 fields:
@@ -1081,7 +1082,7 @@ fields:
     show if: commonwealth_evidence["commonwealth_other"]
 #    required: False
 ---
-id: Specifications cont d
+id: "Specifications cont d 8"
 question: |
   Specifications cont'd
 subquestion: |
@@ -1096,7 +1097,7 @@ fields:
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
     datatype: area
 ---
-id: Specifications cont d
+id: "Specifications cont d 9"
 question: |
   Specifications cont'd
 fields:
