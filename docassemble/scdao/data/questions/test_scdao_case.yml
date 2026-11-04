@@ -205,6 +205,7 @@ fields:
   - 'Oral': oral
     datatype: yesno
   - 'None': none
+    label: "Specifications"
     datatype: yesno
   - 'Requested': requested
     datatype: yesno
@@ -232,6 +233,7 @@ fields:
     required: False
     maxlength: 39
 ---
+id: "if applicable what was item suppressed on most serious charge"
 question: |
  If applicable, what was item suppressed on most serious charge?
 fields:
@@ -258,6 +260,7 @@ fields:
       variable: serious_suppressed
       is: supressed_check_box_other
 ---
+id: "reasons for decision"
 question: |
  Reasons for decision?
 fields:
@@ -285,7 +288,7 @@ fields:
       variable: decision_reason
       is: decision_reason_check_box_other
 ---
-id: Specifications cont d
+id: "Specifications cont d 2"
 question: |
   Specifications cont'd
 subquestion: |
@@ -342,7 +345,7 @@ fields:
   - 'Please specify.': commonwealth_evidence_specific_other
     maxlength: 69
 ---
-id: Specifications cont d
+id: "Specifications cont d 3"
 question: |
   Specifications cont'd
 subquestion: |
@@ -357,7 +360,7 @@ fields:
   - "Your recommendation on whether to appeal and / or next steps (including, but not limited to, any factual findings you disagree with based on the evidence at the hearing, the strength of the case, the impact of the suppression order on your ability to move forward, and defendant's record):": recommendation
     maxlength: 720
 ---
-id: Specifications cont d
+id: "Specifications cont d 4"
 question: |
   Specifications cont'd
 subquestion: |
